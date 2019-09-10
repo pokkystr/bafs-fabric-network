@@ -2,7 +2,7 @@ Organizations:
     - &OrdererOrg
         Name: OrdererMSP
         ID: OrdererMSP
-        MSPDir: crypto-config/ordererOrganizations/orderer.com/msp
+        MSPDir: crypto-config/ordererOrganizations/orderer.bafs.com/msp
         
     - &Bafsorg
         Name: bafsorgmsp
@@ -224,24 +224,24 @@ Orderer: &OrdererDefaults
         Consenters:
             - Host: 34.92.224.227
               Port: 7050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer.orderer.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer.orderer.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/tls/server.crt
             - Host: 34.92.224.227
               Port: 8050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer2.orderer.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer2.orderer.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/tls/server.crt
             - Host: 34.92.224.227
               Port: 9050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer3.orderer.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer3.orderer.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/tls/server.crt
             - Host: 34.92.224.227
               Port: 10050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer4.orderer.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer4.orderer.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/tls/server.crt
             - Host: 34.92.224.227
               Port: 11050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer5.orderer.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer5.orderer.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/tls/server.crt
               
         Options:
             # TickInterval is the time interval between two Node.Tick invocations.

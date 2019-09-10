@@ -1,6 +1,6 @@
 OrdererOrgs:
   - Name: Orderer
-    Domain: orderer.com
+    Domain: orderer.bafs.com
     Specs:
       - Hostname: orderer
         SANS:

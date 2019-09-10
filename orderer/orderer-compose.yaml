@@ -2,14 +2,14 @@
 version: '2'
 
 volumes:
-  orderer.vrt.com:
+  orderer.com:
 
 networks:
-  vrt-network:
+  bafs-network:
 
 services:
-  orderer.vrt.com:
-    container_name: orderer.vrt.com
+  orderer.com:
+    container_name: orderer.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -20,14 +20,14 @@ services:
     command: orderer
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer.vrt.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 7050:7050
     networks:
-      - vrt-network
+      - bafs-network
 
-  orderer2.vrt.com:
-    container_name: orderer2.vrt.com
+  orderer2.com:
+    container_name: orderer2.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -36,14 +36,14 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer2.vrt.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 8050:7050
     networks:
-      - vrt-network
+      - bafs-network
 
-  orderer3.vrt.com:
-    container_name: orderer3.vrt.com
+  orderer3.com:
+    container_name: orderer3.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -52,14 +52,14 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer3.vrt.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 9050:7050
     networks:
-      - vrt-network
+      - bafs-network
 
-  orderer4.vrt.com:
-    container_name: orderer4.vrt.com
+  orderer4.com:
+    container_name: orderer4.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -68,14 +68,14 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer4.vrt.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 10050:7050
     networks:
-      - vrt-network
+      - bafs-network
 
-  orderer5.vrt.com:
-    container_name: orderer5.vrt.com
+  orderer5.com:
+    container_name: orderer5.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -84,8 +84,8 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer5.vrt.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 11050:7050
     networks:
-      - vrt-network
+      - bafs-network
