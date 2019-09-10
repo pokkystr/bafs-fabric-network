@@ -1,0 +1,8 @@
+/*/crypto-config/
+/*/channel-artifacts/
+/orderer/channel-artifacts/
+/orderer/crypto-config/
+/ktb-artifacts/*/pp10*
+
+.idea
+/ktb-artifacts/chaincode

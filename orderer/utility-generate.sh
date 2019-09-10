@@ -1,6 +1,6 @@
 #!/bin/bash
 export ORG_SUFFIX=msp
-export CHANNEL_ID=channel-tradeoil
+export CHANNEL_ID=tradeoil-channel
 export CHANNEL_NAME=tradeOilChannel.tx
 
 ##################################################
@@ -101,19 +101,18 @@ function generate-utility(){
         createFolderChainCode $orgName 
         echo "1 - Create Folder ChainCode OrgName "$orgName" .... Done"
 
+        # copyChaincodeToOrganizations $orgName
+        # echo "1.1 - Copy Chaincode .... Done"
+
         copyCryptoConfigToOrganizations $orgName        
         echo "2 - Copy Folder PeerName "$orgName" .... Done"
 
         copyAnchorsCertToOrganizations $orgName 
         echo "3 - Copy AnchorsName "$orgName" .... Done"
 
-        # copyChaincodeToOrganizations $orgName
-        # echo "Copy Chaincode .... Done"
-
-        # if [ "$orgName" == "rdorg" ]; then
-        #     cp -rp ./channel-artifacts/$CHANNEL_NAME_PP10 ../$ORG_NAME/channel-artifacts/
-        #     cp -rp ./channel-artifacts/$CHANNEL_NAME_PP10SUM ../$ORG_NAME/channel-artifacts/
-        # fi
+        if [ "$orgName" == "bafsorg" ]; then
+            cp -rp ./channel-artifacts/$CHANNEL_NAME ../$ORG_NAME/channel-artifacts/
+        fi
         sleep 1
         echo
     done
