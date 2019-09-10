@@ -1,0 +1,48 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  peer1.cdorg.vrt.com:
+
+networks:
+  vrt-network:
+
+services:
+
+  cdcouchdb1:
+    container_name: cdcouchdb1
+    image: hyperledger/fabric-couchdb
+    environment:
+      - COUCHDB_USER=admindb0
+      - COUCHDB_PASSWORD=admindb0password
+    ports:
+      - 6984:5984
+    networks:
+      - vrt-network
+
+  peer1.cdorg.vrt.com:
+    container_name: peer1.cdorg.vrt.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.cdorg.vrt.com
+      - CORE_PEER_LOCALMSPID=cdorgmsp
+      - CORE_PEER_ADDRESS=peer1.cdorg.vrt.com:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=cdcouchdb1:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admindb0
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=admindb0password
+    ports:
+      - 8051:7051
+      - 8053:7053
+    volumes:
+      - ./channel-artifacts/crypto-config/peerOrganizations/cdorg.vrt.com/peers/peer1.cdorg.vrt.com/:/etc/hyperledger/crypto/peer
+    networks:
+      - vrt-network

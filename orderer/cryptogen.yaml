@@ -1,0 +1,100 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: orderer.com
+    Specs:
+      - Hostname: orderer
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+          - "34.92.224.227" #orderer
+          - "34.84.6.227" #bafs
+      - Hostname: orderer2
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+          - "34.92.224.227" #orderer
+          - "34.84.6.227" #bafs
+      - Hostname: orderer3
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+          - "34.92.224.227" #orderer
+          - "34.84.6.227" #bafs
+      - Hostname: orderer4
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+          - "34.92.224.227" #orderer
+          - "34.84.6.227" #bafs
+      - Hostname: orderer5
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+          - "34.92.224.227" #orderer
+          - "34.84.6.227" #bafs
+
+PeerOrgs:
+  - Name: bafsorg
+    Domain: bafsorg.com
+    CA:
+       Hostname: ca
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+        - "127.0.0.1"
+        - "34.92.224.227" #orderer
+        - "34.84.6.227" #bafs
+    Users:
+      Count: 1
+
+  # - Name: exciseorg
+  #   Domain: exciseorg.com
+  #   CA:
+  #      Hostname: ca # implicitly ca.ind.jedi.com
+  #   EnableNodeOUs: false
+  #   Template:
+  #     Count: 2
+  #     SANS:
+  #        - "localhost"
+  #       - "127.0.0.1"
+  #       - "34.92.224.227" #orderer
+  #       - "34.84.6.227" #bafs
+  #   Users:
+  #     Count: 1
+      
+  # - Name: airlineorg
+  #   Domain: airlineorg.com
+  #   CA:
+  #      Hostname: ca # implicitly ca.ind.jedi.com
+  #   EnableNodeOUs: false
+  #   Template:
+  #     Count: 2
+  #     SANS:
+  #        - "localhost"
+  #        - "127.0.0.1"
+  #        - "10.9.214.235"
+  #        - "10.9.214.236"
+  #        - "10.9.214.237"
+  #        - "10.9.211.109"
+  #        - "10.9.211.110"
+  #   Users:
+  #     Count: 1
+  
+  # - Name: cdorg
+  #   Domain: cdorg.com
+  #   CA:
+  #      Hostname: ca
+  #   EnableNodeOUs: false
+  #   Template:
+  #     Count: 2
+  #     SANS:
+  #        - "localhost"
+  #        - "127.0.0.1"
+  #        - "10.9.214.235"
+  #        - "10.9.214.236"
+  #        - "10.9.214.237"
+  #        - "10.9.211.109"
+  #        - "10.9.211.110"
+  #   Users:
+  #     Count: 1

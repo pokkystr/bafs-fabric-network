@@ -1,0 +1,91 @@
+
+version: '2'
+
+volumes:
+  orderer.vrt.com:
+
+networks:
+  vrt-network:
+
+services:
+  orderer.vrt.com:
+    container_name: orderer.vrt.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderers
+    command: orderer
+    volumes:
+        - ./channel-artifacts:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer.vrt.com/:/etc/hyperledger/crypto/orderer
+    ports:
+      - 7050:7050
+    networks:
+      - vrt-network
+
+  orderer2.vrt.com:
+    container_name: orderer2.vrt.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+    volumes:
+        - ./channel-artifacts:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer2.vrt.com/:/etc/hyperledger/crypto/orderer
+    ports:
+      - 8050:7050
+    networks:
+      - vrt-network
+
+  orderer3.vrt.com:
+    container_name: orderer3.vrt.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+    volumes:
+        - ./channel-artifacts:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer3.vrt.com/:/etc/hyperledger/crypto/orderer
+    ports:
+      - 9050:7050
+    networks:
+      - vrt-network
+
+  orderer4.vrt.com:
+    container_name: orderer4.vrt.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+    volumes:
+        - ./channel-artifacts:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer4.vrt.com/:/etc/hyperledger/crypto/orderer
+    ports:
+      - 10050:7050
+    networks:
+      - vrt-network
+
+  orderer5.vrt.com:
+    container_name: orderer5.vrt.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+    volumes:
+        - ./channel-artifacts:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/vrt.com/orderers/orderer5.vrt.com/:/etc/hyperledger/crypto/orderer
+    ports:
+      - 11050:7050
+    networks:
+      - vrt-network
