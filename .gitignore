@@ -1,10 +1,5 @@
-# crypto-config/*
-# ../bafs-fabric-network/*/channel-artifacts
-# ../bafs-fabric-network/orderer/channel-artifacts
-# ../bafs-fabric-network/bafsorg/channel-artifacts
-
-/bafsorg/channel-artifacts
-/orderer/channel-artifacts
+/*/channel-artifacts/
+/*/crypto-config/
 
 .idea
 /ktb-artifacts/chaincode
