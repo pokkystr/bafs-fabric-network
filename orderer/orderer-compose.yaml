@@ -74,18 +74,18 @@ services:
     networks:
       - bafs-network
 
-  # orderer5.com:
-  #   container_name: orderer5.com
-  #   extends:
-  #     file: peer-base.yaml
-  #     service: orderer-base
-  #   environment:
-  #     - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
-  #     - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
-  #   volumes:
-  #       - ./channel-artifacts:/etc/hyperledger/configtx
-  #       - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
-  #   ports:
-  #     - 11050:7050
-  #   networks:
-  #     - bafs-network
+  orderer5.com:
+    container_name: orderer5.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
+    volumes:
+        - ./channel-artifacts:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
+    ports:
+      - 11050:7050
+    networks:
+      - bafs-network

@@ -45,7 +45,7 @@ function copyCryptoConfigToOrganizations(){
     cp -r ./crypto-config/peerOrganizations/$ORG_NAME.com ../$ORG_NAME/channel-artifacts/crypto-config/peerOrganizations/
 
     checkAndCreateOrdererOrg $ORG_NAME
-    cp -r ./crypto-config/ordererOrganizations ../$ORG_NAME/channel-artifacts/crypto-config/ordererOrganizations/
+    cp -r ./crypto-config/ordererOrganizations/ ../$ORG_NAME/channel-artifacts/crypto-config/ordererOrganizations/
 }
 
 function generateChannel(){

@@ -4,11 +4,11 @@ Organizations:
         ID: OrdererMSP
         MSPDir: crypto-config/ordererOrganizations/orderer.bafs.com/msp
         
-    - &Bafsorg
+    - &bafsorg
         Name: bafsorgmsp
         ID: bafsorgmsp
         MSPDir: crypto-config/peerOrganizations/bafsorg.com/msp
-        Policies: &rdorgPolicies
+        Policies:
             Readers:
                 Type: Signature
                 Rule: "OR('bafsorgmsp.member')"
@@ -192,11 +192,11 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - 34.92.224.227:7050
-        - 34.92.224.227:8050
-        - 34.92.224.227:9050
-        - 34.92.224.227:10050
-        - 34.92.224.227:11050
+        - 10.146.0.4:7050
+        - 10.146.0.4:8050
+        - 10.146.0.4:9050
+        - 10.146.0.4:10050
+        - 10.146.0.4:11050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -222,27 +222,26 @@ Orderer: &OrdererDefaults
         # a subset of the host:port items enumerated in this list should be
         # replicated under the Orderer.Addresses key above.
         Consenters:
-            - Host: 34.92.224.227
+            - Host: 10.146.0.4
               Port: 7050
               ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/tls/server.crt
-            - Host: 34.92.224.227
+            - Host: 10.146.0.4
               Port: 8050
               ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/tls/server.crt
-            - Host: 34.92.224.227
+            - Host: 10.146.0.4
               Port: 9050
               ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/tls/server.crt
-            - Host: 34.92.224.227
+            - Host: 10.146.0.4
               Port: 10050
               ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/tls/server.crt
-            - Host: 34.92.224.227
+            - Host: 10.146.0.4
               Port: 11050
               ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/tls/server.crt
-              
         Options:
             # TickInterval is the time interval between two Node.Tick invocations.
             TickInterval: 500ms
@@ -267,12 +266,9 @@ Orderer: &OrdererDefaults
             SnapshotIntervalSize: 20 MB
     Organizations:
 ################################################################################
-#
 #   CHANNEL
-#
 #   This section defines the values to encode into a config transaction or
 #   genesis block for channel related parameters.
-#
 ################################################################################
 Channel: &ChannelDefaults
     Policies:
@@ -289,12 +285,9 @@ Channel: &ChannelDefaults
         <<: *ChannelCapabilities
 
 ################################################################################
-#
 #   Profile
-#
 #   - Different configuration profiles may be encoded here to be specified
 #   as parameters to the configtxgen tool
-#
 ################################################################################
 Profiles:
     BafsOrdererGenesis:
@@ -307,7 +300,7 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Bafsorg
+                    - *bafsorg
                     # - *cdorg
                     # - *ktborg
                     # - *moforg                    
@@ -316,18 +309,8 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Bafsorg
+                - *bafsorg
                 # - *cdorg
                 # - *moforg
             Capabilities:
                 <<: *ApplicationCapabilities
-    # PP10SChannel:
-    #     Consortium: SampleConsortium
-    #     Application:
-    #         <<: *ApplicationDefaults
-    #         Organizations:
-    #             - *rdorg
-    #             - *ktborg
-    #             - *moforg
-    #         Capabilities:
-    #             <<: *ApplicationCapabilities

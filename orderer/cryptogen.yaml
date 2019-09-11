@@ -6,32 +6,32 @@ OrdererOrgs:
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "34.92.224.227" #orderer
-          - "34.84.6.227" #bafs
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
       - Hostname: orderer2
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "34.92.224.227" #orderer
-          - "34.84.6.227" #bafs
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
       - Hostname: orderer3
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "34.92.224.227" #orderer
-          - "34.84.6.227" #bafs
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
       - Hostname: orderer4
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "34.92.224.227" #orderer
-          - "34.84.6.227" #bafs
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
       - Hostname: orderer5
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "34.92.224.227" #orderer
-          - "34.84.6.227" #bafs
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
 
 PeerOrgs:
   - Name: bafsorg
@@ -43,8 +43,8 @@ PeerOrgs:
       SANS:
         - "localhost"
         - "127.0.0.1"
-        - "34.92.224.227" #orderer
-        - "34.84.6.227" #bafs
+        - "10.146.0.4" #orderer
+        - "10.128.0.2" #bafs
     Users:
       Count: 1
 
@@ -58,8 +58,8 @@ PeerOrgs:
   #     SANS:
   #        - "localhost"
   #       - "127.0.0.1"
-  #       - "34.92.224.227" #orderer
-  #       - "34.84.6.227" #bafs
+  #       - "10.146.0.4" #orderer
+  #       - "10.128.0.2" #bafs
   #   Users:
   #     Count: 1
       
