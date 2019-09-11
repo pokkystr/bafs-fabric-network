@@ -3,16 +3,16 @@ Organizations:
         Name: OrdererMSP
         ID: OrdererMSP
         MSPDir: crypto-config/ordererOrganizations/orderer.bafs.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('bafsorgmsp.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('bafsorgmsp.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('bafsorgmsp.admin')"
+        # Policies:
+        #     Readers:
+        #         Type: Signature
+        #         Rule: "OR('bafsorgmsp.member')"
+        #     Writers:
+        #         Type: Signature
+        #         Rule: "OR('bafsorgmsp.member')"
+        #     Admins:
+        #         Type: Signature
+        #         Rule: "OR('bafsorgmsp.admin')"
         
     - &bafsorg
         Name: bafsorgmsp
