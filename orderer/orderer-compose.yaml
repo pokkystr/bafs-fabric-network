@@ -5,7 +5,7 @@ volumes:
   orderer.com:
 
 networks:
-  bafs-network:
+  orderer-network:
 
 services:
   orderer.com:
@@ -24,7 +24,7 @@ services:
     ports:
       - 7050:7050
     networks:
-      - bafs-network
+      - orderer-network
 
   orderer2.com:
     container_name: orderer2.com
@@ -40,7 +40,7 @@ services:
     ports:
       - 8050:7050
     networks:
-      - bafs-network
+      - orderer-network
 
   orderer3.com:
     container_name: orderer3.com
@@ -56,7 +56,7 @@ services:
     ports:
       - 9050:7050
     networks:
-      - bafs-network
+      - orderer-network
 
   orderer4.com:
     container_name: orderer4.com
@@ -72,7 +72,7 @@ services:
     ports:
       - 10050:7050
     networks:
-      - bafs-network
+      - orderer-network
 
   orderer5.com:
     container_name: orderer5.com
@@ -88,4 +88,4 @@ services:
     ports:
       - 11050:7050
     networks:
-      - bafs-network
+      - orderer-network

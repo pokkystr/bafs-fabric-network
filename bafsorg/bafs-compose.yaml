@@ -25,10 +25,10 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-rdorg
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bafsorg.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${KTB_CA_PRIVATE_KEY}
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CA_PRIVATE_KEY}
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bafsorg.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${KTB_CA_PRIVATE_KEY}
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CA_PRIVATE_KEY}
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.com/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -81,5 +81,6 @@ services:
         - /var/run/:/host/var/run/
         - ./channel-artifacts/crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+        - ./cli-comman:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli-comman
     networks:
       - bafs-network
