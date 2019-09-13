@@ -6,32 +6,37 @@ OrdererOrgs:
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "10.146.0.4"
-          - "10.128.0.2"
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
+          - "10.128.0.3" #airline
       - Hostname: orderer2
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "10.146.0.4"
-          - "10.128.0.2"
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
+          - "10.128.0.3" #airline
       - Hostname: orderer3
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "10.146.0.4"
-          - "10.128.0.2"
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
+          - "10.128.0.3" #airline
       - Hostname: orderer4
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "10.146.0.4"
-          - "10.128.0.2"
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
+          - "10.128.0.3" #airline
       - Hostname: orderer5
         SANS:
           - "localhost"
           - "127.0.0.1"
-          - "10.146.0.4"
-          - "10.128.0.2"
+          - "10.146.0.4" #orderer
+          - "10.128.0.2" #bafs
+          - "10.128.0.3" #airline
 
 PeerOrgs:
   - Name: bafs
@@ -43,28 +48,27 @@ PeerOrgs:
       SANS:
         - "localhost"
         - "127.0.0.1"
-        - "10.146.0.4"
-        - "10.128.0.2"
+        - "10.146.0.4" #orderer
+        - "10.128.0.2" #bafs
+        - "10.128.0.3" #airline
     Users:
       Count: 1
 
-  # - Name: cdorg
-  #   Domain: cdorg.oil.com
-  #   CA:
-  #      Hostname: ca # implicitly ca.ind.jedi.com
-  #   EnableNodeOUs: false
-  #   Template:
-  #     Count: 2
-  #     SANS:
-  #        - "localhost"
-  #        - "127.0.0.1"
-  #        - "10.9.214.235"
-  #        - "10.9.214.236"
-  #        - "10.9.214.237"
-  #        - "10.9.211.109"
-  #        - "10.9.211.110"
-  #   Users:
-  #     Count: 1
+  - Name: airlineorg
+    Domain: airlineorg.oil.com
+    CA:
+       Hostname: ca # implicitly ca.ind.jedi.com
+    EnableNodeOUs: false
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+        - "127.0.0.1"
+        - "10.146.0.4" #orderer
+        - "10.128.0.2" #bafs
+        - "10.128.0.3" #airline
+    Users:
+      Count: 1
       
   # - Name: ktborg
   #   Domain: ktborg.oil.com

@@ -1,0 +1,86 @@
+version: '2'
+
+volumes:
+  peer0.airlineorg.oil.com:
+
+networks:
+  airline:
+
+services:
+  ca.airlineorg.oil.com:
+    container_name: ca-peer-airlineorg
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-airlineorg
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.airlineorg.oil.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CA_PRIVATE_KEY}
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.airlineorg.oil.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CA_PRIVATE_KEY}
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ./channel-artifacts/crypto-config/peerOrganizations/airlineorg.oil.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    ports:
+      - 7054:7054
+    networks:
+      - airline
+      
+  airlinecouchdb0:
+    container_name: airlinecouchdb0
+    image: hyperledger/fabric-couchdb
+    environment:
+      - COUCHDB_USER=admindb0
+      - COUCHDB_PASSWORD=admindb0password
+    ports:
+      - 5984:5984
+    networks:
+      - airline
+
+  peer0.airlineorg.oil.com:
+    container_name: peer0.airlineorg.oil.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.airlineorg.oil.com
+      - CORE_PEER_LOCALMSPID=airlineorgmsp
+      - CORE_PEER_ADDRESS=peer0.airlineorg.oil.com:7051
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=airlinecouchdb0:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admindb0
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=admindb0password
+    volumes:
+        - ./channel-artifacts/crypto-config/peerOrganizations/airlineorg.oil.com/peers/peer0.airlineorg.oil.com/:/etc/hyperledger/crypto/peer
+    ports:
+      - 7051:7051
+      - 7053:7053
+    networks:
+      - airline
+    
+  cli.airlineorg.oil.com:
+    container_name: cli.airlineorg.oil.com
+    image: hyperledger/fabric-tools
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.airlineorg.oil.com:7051
+      - CORE_PEER_LOCALMSPID=airlineorgmsp
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/airlineorg.oil.com/peers/peer0.airlineorg.oil.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/airlineorg.oil.com/peers/peer0.airlineorg.oil.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/airlineorg.oil.com/peers/peer0.airlineorg.oil.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/airlineorg.oil.com/users/Admin@airlineorg.oil.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./channel-artifacts/crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+        - ./cli-command:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli-command
+    networks:
+      - airline

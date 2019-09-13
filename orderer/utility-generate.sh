@@ -86,19 +86,18 @@ function generate-utility(){
     echo "############# Generate channel ##############"
     echo "#############################################"
     generateChannel
-    # configtxgen -profile PP10Channel -outputCreateChannelTx ./channel-artifacts/pp10channel.tx -channelID $CHANNEL_NAME_PP10
 
     # echo
     # echo "#############################################"
     # echo "########## Generate Anchors PP10 ############"
     # echo "#############################################"
-    for orgName in bafsorg; do
+    for orgName in bafsorg airlineorg; do
 		generateAnchorsCert $CHANNEL_ID $orgName TradeOilChannel
         sleep 1
     done
     # generateAnchorsCert channel-vrt-pp10 rdorg PP10Channel
 
-    for orgName in bafsorg; do
+    for orgName in bafsorg airlineorg; do
         createFolderChainCode $orgName 
         echo "Create Folder ChainCode OrgName "$orgName" .... Done"
 

@@ -25,26 +25,26 @@ Organizations:
             - Host: 10.128.0.2
               Port: 7051
 
-    # - &cdorg
-    #     Name: cdorgmsp
-    #     ID: cdorgmsp
-    #     MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
-    #     Policies: &cdorgPolicies
-    #         Readers:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.member')"
-    #         Writers:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.member')"
-    #         Admins:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.admin')"
-    #         Endorsement:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.member')"
-    #     AnchorPeers:
-    #         - Host: peer0.cdorg.oil.com
-    #           Port: 7051
+    - &airlineorg
+        Name: airlineorgmsp
+        ID: airlineorgmsp
+        MSPDir: crypto-config/peerOrganizations/airlineorg.oil.com/msp
+        Policies: &airlineorgPolicies
+            Readers:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.member')"
+        AnchorPeers:
+            - Host: 10.128.0.3
+              Port: 7051
 
     # - &ktborg
     #     Name: ktborgmsp
@@ -308,7 +308,7 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *bafsorg
-                    # - *cdorg
+                    - *airlineorg
                     # - *ktborg
                     # - *moforg
     TradeOilChannel:
@@ -317,7 +317,7 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *bafsorg
-                # - *cdorg
+                - *airlineorg
                 # - *moforg
             Capabilities:
                 <<: *ApplicationCapabilities
