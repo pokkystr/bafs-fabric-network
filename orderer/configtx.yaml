@@ -3,28 +3,28 @@ Organizations:
         Name: OrdererMSP
         ID: OrdererMSP
         MSPDir: crypto-config/ordererOrganizations/orderer.bafs.com/msp
-        # Policies:
-        #     Readers:
-        #         Type: Signature
-        #         Rule: "OR('bafsorgmsp.member')"
-        #     Writers:
-        #         Type: Signature
-        #         Rule: "OR('bafsorgmsp.member')"
-        #     Admins:
-        #         Type: Signature
-        #         Rule: "OR('bafsorgmsp.admin')"
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
         
-    - &bafsorg
+    - &Bafsorg
         Name: bafsorgmsp
         ID: bafsorgmsp
         MSPDir: crypto-config/peerOrganizations/bafsorg.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('bafsorgmsp.member')"
+                Rule: "OR('bafsorgmsp.admin', 'bafsorgmsp.peer', 'bafsorgmsp.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('bafsorgmsp.member')"
+                Rule: "OR('bafsorgmsp.admin', 'bafsorgmsp.client')"
             Admins:
                 Type: Signature
                 Rule: "OR('bafsorgmsp.admin')"
@@ -199,6 +199,7 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
+        # - 127.0.0.1:7050
         - 10.146.0.4:7050
         # - 10.146.0.4:8050
         # - 10.146.0.4:9050
@@ -307,7 +308,7 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *bafsorg
+                    - *Bafsorg
                     # - *cdorg
                     # - *ktborg
                     # - *moforg                    
@@ -316,7 +317,7 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *bafsorg
+                - *Bafsorg
                 # - *cdorg
                 # - *moforg
             Capabilities:

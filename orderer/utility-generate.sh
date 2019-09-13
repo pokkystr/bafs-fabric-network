@@ -1,7 +1,7 @@
 #!/bin/bash
 export ORG_SUFFIX=msp
-export CHANNEL_ID=tradeoil-channel
-export CHANNEL_NAME=tradeOilChannel.tx
+# export CHANNEL_NAME=tradeoil-channel
+export CHANNEL_NAME=tradeoilchannel
 
 ##################################################
 # function generateCert need param 
@@ -49,7 +49,7 @@ function copyCryptoConfigToOrganizations(){
 }
 
 function generateChannel(){
-    configtxgen -profile TradeOilChannel -outputCreateChannelTx ./channel-artifacts/$CHANNEL_NAME -channelID $CHANNEL_ID
+    configtxgen -profile TradeOilChannel -outputCreateChannelTx ./channel-artifacts/${CHANNEL_NAME}.tx -channelID $CHANNEL_NAME
 }
 
 function createFolderChainCode(){
@@ -93,7 +93,7 @@ function generate-utility(){
     echo "############ Generate Anchors ##############"
     echo "############################################"
     for orgName in bafsorg; do
-		generateAnchorsCert $CHANNEL_ID $orgName TradeOilChannel
+		generateAnchorsCert $CHANNEL_NAME $orgName TradeOilChannel
         sleep 1
     done
 
@@ -111,7 +111,7 @@ function generate-utility(){
         echo "3 - Copy AnchorsName "$orgName" .... Done"
 
         if [ "$orgName" == "bafsorg" ]; then
-            cp -rp ./channel-artifacts/$CHANNEL_NAME ../$ORG_NAME/channel-artifacts/
+            cp -rp ./channel-artifacts/${CHANNEL_NAME}.tx ../$ORG_NAME/channel-artifacts/
         fi
         sleep 1
         echo

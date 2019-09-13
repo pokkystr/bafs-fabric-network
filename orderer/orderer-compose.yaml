@@ -1,15 +1,15 @@
-
 version: '2'
 
 volumes:
   orderer.com:
 
 networks:
-  orderer-network:
+  petroleum:
 
 services:
   orderer.com:
     container_name: orderer.com
+    dns_search: .
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -24,10 +24,11 @@ services:
     ports:
       - 7050:7050
     networks:
-      - orderer-network
+      - petroleum
 
   orderer2.com:
     container_name: orderer2.com
+    dns_search: .
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -40,10 +41,11 @@ services:
     ports:
       - 8050:7050
     networks:
-      - orderer-network
+      - petroleum
 
   orderer3.com:
     container_name: orderer3.com
+    dns_search: .
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -56,10 +58,11 @@ services:
     ports:
       - 9050:7050
     networks:
-      - orderer-network
+      - petroleum
 
   orderer4.com:
     container_name: orderer4.com
+    dns_search: .
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -72,10 +75,11 @@ services:
     ports:
       - 10050:7050
     networks:
-      - orderer-network
+      - petroleum
 
   orderer5.com:
     container_name: orderer5.com
+    dns_search: .
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -88,4 +92,4 @@ services:
     ports:
       - 11050:7050
     networks:
-      - orderer-network
+      - petroleum

@@ -34,8 +34,9 @@ OrdererOrgs:
           - "10.128.0.2" #bafs
 
 PeerOrgs:
-  - Name: bafsorg
+  - Name: Bafsorg
     Domain: bafsorg.com
+    EnableNodeOUs: true
     CA:
        Hostname: ca
     Template:
