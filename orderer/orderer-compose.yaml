@@ -1,15 +1,15 @@
+
 version: '2'
 
 volumes:
-  orderer.com:
+  orderer.oil.com:
 
 networks:
-  petroleum:
+  orderer:
 
 services:
-  orderer.com:
-    container_name: orderer.com
-    dns_search: .
+  orderer.oil.com:
+    container_name: orderer.oil.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -20,15 +20,14 @@ services:
     command: orderer
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 7050:7050
     networks:
-      - petroleum
+      - orderer
 
-  orderer2.com:
-    container_name: orderer2.com
-    dns_search: .
+  orderer2.oil.com:
+    container_name: orderer2.oil.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -37,15 +36,14 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 8050:7050
     networks:
-      - petroleum
+      - orderer
 
-  orderer3.com:
-    container_name: orderer3.com
-    dns_search: .
+  orderer3.oil.com:
+    container_name: orderer3.oil.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -54,15 +52,14 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 9050:7050
     networks:
-      - petroleum
+      - orderer
 
-  orderer4.com:
-    container_name: orderer4.com
-    dns_search: .
+  orderer4.oil.com:
+    container_name: orderer4.oil.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -71,15 +68,14 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 10050:7050
     networks:
-      - petroleum
+      - orderer
 
-  orderer5.com:
-    container_name: orderer5.com
-    dns_search: .
+  orderer5.oil.com:
+    container_name: orderer5.oil.com
     extends:
       file: peer-base.yaml
       service: orderer-base
@@ -88,8 +84,8 @@ services:
       - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt]
     volumes:
         - ./channel-artifacts:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/:/etc/hyperledger/crypto/orderer
+        - ./crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/:/etc/hyperledger/crypto/orderer
     ports:
       - 11050:7050
     networks:
-      - petroleum
+      - orderer

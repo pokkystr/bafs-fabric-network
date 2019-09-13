@@ -1,30 +1,30 @@
 version: '2'
 
 volumes:
-  peer0.bafs.com:
+  peer0.bafsorg.oil.com:
 
 networks:
-  petroleum:
+  bafs:
 
 services:
-  ca.bafsorg.com:
+  ca.bafsorg.oil.com:
     container_name: ca-peer-bafsorg
     image: hyperledger/fabric-ca
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-rdorg
-      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bafsorg.com-cert.pem
+      - FABRIC_CA_SERVER_CA_NAME=ca-bafsorg
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bafsorg.oil.com-cert.pem
       - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CA_PRIVATE_KEY}
       - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bafsorg.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bafsorg.oil.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/${CA_PRIVATE_KEY}
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
-      - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/ca/:/etc/hyperledger/fabric-ca-server-config
     ports:
       - 7054:7054
     networks:
-      - petroleum
+      - bafs
       
   bafscouchdb0:
     container_name: bafscouchdb0
@@ -35,32 +35,31 @@ services:
     ports:
       - 5984:5984
     networks:
-      - petroleum
+      - bafs
 
-  peer0.bafsorg.com:
-    container_name: peer0.bafsorg.com
+  peer0.bafsorg.oil.com:
+    container_name: peer0.bafsorg.oil.com
     extends:
       file: peer-base.yaml
       service: peer-base
-    dns_search: .
     environment:
-      - CORE_PEER_ID=peer0.bafsorg.com
-      - CORE_PEER_LOCALMSPID=bafsorg
-      - CORE_PEER_ADDRESS=peer0.bafsorg.com:7051
+      - CORE_PEER_ID=peer0.bafsorg.oil.com
+      - CORE_PEER_LOCALMSPID=bafsorgmsp
+      - CORE_PEER_ADDRESS=peer0.bafsorg.oil.com:7051
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=bafscouchdb0:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admindb0
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=admindb0password
     volumes:
-        - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.com/peers/peer0.bafsorg.com/:/etc/hyperledger/crypto/peer
+        - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/:/etc/hyperledger/crypto/peer
     ports:
       - 7051:7051
       - 7053:7053
     networks:
-      - petroleum
+      - bafs
     
-  cli.bafsorg.com:
-    container_name: cli.bafsorg.com
+  cli.bafsorg.oil.com:
+    container_name: cli.bafsorg.oil.com
     image: hyperledger/fabric-tools
     tty: true
     stdin_open: true
@@ -69,13 +68,13 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - FABRIC_LOGGING_SPEC=INFO
       - CORE_PEER_ID=cli
-      - CORE_PEER_ADDRESS=peer0.bafsorg.com:7051
-      - CORE_PEER_LOCALMSPID=rdorgmsp
+      - CORE_PEER_ADDRESS=peer0.bafsorg.oil.com:7051
+      - CORE_PEER_LOCALMSPID=bafsorgmsp
       - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.com/peers/peer0.bafsorg.com/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.com/peers/peer0.bafsorg.com/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.com/peers/peer0.bafsorg.com/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.com/users/Admin@bafsorg.com/msp
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/bafsorg.oil.com/users/Admin@bafsorg.oil.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
@@ -84,4 +83,4 @@ services:
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         - ./cli-command:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli-command
     networks:
-      - petroleum
+      - bafs

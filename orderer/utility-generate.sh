@@ -1,6 +1,6 @@
 #!/bin/bash
 export ORG_SUFFIX=msp
-# export CHANNEL_NAME=tradeoil-channel
+export CHANNEL_ID=channel-trade-oil
 export CHANNEL_NAME=tradeoilchannel
 
 ##################################################
@@ -42,14 +42,14 @@ function copyCryptoConfigToOrganizations(){
     ORG_NAME=$1
     
     checkAndCreatePeerOrg $ORG_NAME
-    cp -r ./crypto-config/peerOrganizations/$ORG_NAME.com ../$ORG_NAME/channel-artifacts/crypto-config/peerOrganizations/
+    cp -r ./crypto-config/peerOrganizations/$ORG_NAME.oil.com ../$ORG_NAME/channel-artifacts/crypto-config/peerOrganizations/
 
     checkAndCreateOrdererOrg $ORG_NAME
-    cp -r ./crypto-config/ordererOrganizations/ ../$ORG_NAME/channel-artifacts/crypto-config/ordererOrganizations/
+    cp -r ./crypto-config/ordererOrganizations/oil.com ../$ORG_NAME/channel-artifacts/crypto-config/ordererOrganizations/
 }
 
 function generateChannel(){
-    configtxgen -profile TradeOilChannel -outputCreateChannelTx ./channel-artifacts/${CHANNEL_NAME}.tx -channelID $CHANNEL_NAME
+    configtxgen -profile TradeOilChannel -outputCreateChannelTx ./channel-artifacts/${CHANNEL_NAME}.tx -channelID $CHANNEL_ID
 }
 
 function createFolderChainCode(){
@@ -58,7 +58,6 @@ function createFolderChainCode(){
     if [ -d ../$ORG_NAME/channel-artifacts/ ]; then
         rm -rf ../$ORG_NAME/channel-artifacts/
     fi
-    mkdir -p ../$ORG_NAME/channel-artifacts/
     mkdir -p ../$ORG_NAME/channel-artifacts/chaincode/
 }
 
@@ -83,32 +82,34 @@ function replaceComposeKeySK(){
 
 function generate-utility(){
     echo
-    echo "############################################"
-    echo "############# Generate channel #############"
-    echo "############################################"
+    echo "#############################################"
+    echo "############# Generate channel ##############"
+    echo "#############################################"
     generateChannel
-    
-    echo
-    echo "############################################"
-    echo "############ Generate Anchors ##############"
-    echo "############################################"
+    # configtxgen -profile PP10Channel -outputCreateChannelTx ./channel-artifacts/pp10channel.tx -channelID $CHANNEL_NAME_PP10
+
+    # echo
+    # echo "#############################################"
+    # echo "########## Generate Anchors PP10 ############"
+    # echo "#############################################"
     for orgName in bafsorg; do
-		generateAnchorsCert $CHANNEL_NAME $orgName TradeOilChannel
+		generateAnchorsCert $CHANNEL_ID $orgName TradeOilChannel
         sleep 1
     done
+    # generateAnchorsCert channel-vrt-pp10 rdorg PP10Channel
 
     for orgName in bafsorg; do
         createFolderChainCode $orgName 
-        echo "1 - Create Folder ChainCode OrgName "$orgName" .... Done"
+        echo "Create Folder ChainCode OrgName "$orgName" .... Done"
 
         # copyChaincodeToOrganizations $orgName
-        # echo "1.1 - Copy Chaincode .... Done"
+        # echo "Copy Chaincode .... Done"
 
         copyCryptoConfigToOrganizations $orgName        
-        echo "2 - Copy Folder PeerName "$orgName" .... Done"
+        echo "Copy Folder PeerName "$orgName" .... Done"
 
         copyAnchorsCertToOrganizations $orgName 
-        echo "3 - Copy AnchorsName "$orgName" .... Done"
+        echo "Copy AnchorsName "$orgName" .... Done"
 
         if [ "$orgName" == "bafsorg" ]; then
             cp -rp ./channel-artifacts/${CHANNEL_NAME}.tx ../$ORG_NAME/channel-artifacts/

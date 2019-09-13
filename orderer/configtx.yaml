@@ -2,40 +2,33 @@ Organizations:
     - &OrdererOrg
         Name: OrdererMSP
         ID: OrdererMSP
-        MSPDir: crypto-config/ordererOrganizations/orderer.bafs.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('OrdererMSP.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('OrdererMSP.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('OrdererMSP.admin')"
+        MSPDir: crypto-config/ordererOrganizations/oil.com/msp
         
-    - &Bafsorg
+    - &bafsorg
         Name: bafsorgmsp
         ID: bafsorgmsp
-        MSPDir: crypto-config/peerOrganizations/bafsorg.com/msp
-        Policies:
+        MSPDir: crypto-config/peerOrganizations/bafsorg.oil.com/msp
+        Policies: &bafsorgPolicies
             Readers:
                 Type: Signature
-                Rule: "OR('bafsorgmsp.admin', 'bafsorgmsp.peer', 'bafsorgmsp.client')"
+                Rule: "OR('bafsorgmsp.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('bafsorgmsp.admin', 'bafsorgmsp.client')"
+                Rule: "OR('bafsorgmsp.member')"
             Admins:
                 Type: Signature
                 Rule: "OR('bafsorgmsp.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('bafsorgmsp.member')"
         AnchorPeers:
-            - Host: peer0.bafsorg.com
+            - Host: 10.128.0.2
               Port: 7051
 
     # - &cdorg
     #     Name: cdorgmsp
     #     ID: cdorgmsp
-    #     MSPDir: crypto-config/peerOrganizations/cdorg.vrt.com/msp
+    #     MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
     #     Policies: &cdorgPolicies
     #         Readers:
     #             Type: Signature
@@ -50,13 +43,13 @@ Organizations:
     #             Type: Signature
     #             Rule: "OR('cdorgmsp.member')"
     #     AnchorPeers:
-    #         - Host: peer0.cdorg.vrt.com
+    #         - Host: peer0.cdorg.oil.com
     #           Port: 7051
 
     # - &ktborg
     #     Name: ktborgmsp
     #     ID: ktborgmsp
-    #     MSPDir: crypto-config/peerOrganizations/ktborg.vrt.com/msp
+    #     MSPDir: crypto-config/peerOrganizations/ktborg.oil.com/msp
     #     Policies: &ktborgPolicies
     #         Readers:
     #             Type: Signature
@@ -71,13 +64,13 @@ Organizations:
     #             Type: Signature
     #             Rule: "OR('ktborgmsp.member')"
     #     AnchorPeers:
-    #         - Host: peer0.ktborg.vrt.com
+    #         - Host: peer0.ktborg.oil.com
     #           Port: 7051
               
     # - &moforg
     #     Name: moforgmsp
     #     ID: moforgmsp
-    #     MSPDir: crypto-config/peerOrganizations/moforg.vrt.com/msp
+    #     MSPDir: crypto-config/peerOrganizations/moforg.oil.com/msp
     #     Policies: &moforgPolicies
     #         Readers:
     #             Type: Signature
@@ -92,7 +85,7 @@ Organizations:
     #             Type: Signature
     #             Rule: "OR('moforgmsp.member')"
     #     AnchorPeers:
-    #         - Host: peer0.moforg.vrt.com
+    #         - Host: peer0.moforg.oil.com
     #           Port: 7051
 
 
@@ -199,7 +192,6 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        # - 127.0.0.1:7050
         - 10.146.0.4:7050
         # - 10.146.0.4:8050
         # - 10.146.0.4:9050
@@ -232,24 +224,25 @@ Orderer: &OrdererDefaults
         Consenters:
             - Host: 10.146.0.4
               Port: 7050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer.orderer.bafs.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
             - Host: 10.146.0.4
               Port: 8050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer2.orderer.bafs.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
             - Host: 10.146.0.4
               Port: 9050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer3.orderer.bafs.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
             - Host: 10.146.0.4
               Port: 10050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer4.orderer.bafs.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
             - Host: 10.146.0.4
               Port: 11050
-              ClientTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/orderer.bafs.com/orderers/orderer5.orderer.bafs.com/tls/server.crt
+              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
+              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
+              
         Options:
             # TickInterval is the time interval between two Node.Tick invocations.
             TickInterval: 500ms
@@ -274,9 +267,12 @@ Orderer: &OrdererDefaults
             SnapshotIntervalSize: 20 MB
     Organizations:
 ################################################################################
+#
 #   CHANNEL
+#
 #   This section defines the values to encode into a config transaction or
 #   genesis block for channel related parameters.
+#
 ################################################################################
 Channel: &ChannelDefaults
     Policies:
@@ -293,9 +289,12 @@ Channel: &ChannelDefaults
         <<: *ChannelCapabilities
 
 ################################################################################
+#
 #   Profile
+#
 #   - Different configuration profiles may be encoded here to be specified
 #   as parameters to the configtxgen tool
+#
 ################################################################################
 Profiles:
     BafsOrdererGenesis:
@@ -308,16 +307,16 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Bafsorg
+                    - *bafsorg
                     # - *cdorg
                     # - *ktborg
-                    # - *moforg                    
+                    # - *moforg
     TradeOilChannel:
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Bafsorg
+                - *bafsorg
                 # - *cdorg
                 # - *moforg
             Capabilities:

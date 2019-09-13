@@ -5,14 +5,14 @@ function orderer-generateCerts() {
   which cryptogen
   echo
   echo "##########################################################"
-  echo "##### Orderer Generate certificates or cryptogen tool ####"
+  echo "##### Orderer Generate certificates or cryptogen tool #########"
   echo "##########################################################"
 
   if [ -d "crypto-config" ]; then
     rm -Rf crypto-config
   fi
   set -x
-  cryptogen generate --config=./crypto-confix.yaml
+  cryptogen generate --config=./cryptogen.yaml
   res=$?
   set +x
   if [ $res -ne 0 ]; then
@@ -21,15 +21,15 @@ function orderer-generateCerts() {
   fi
   echo
 }
-SYS_CHANNEL="bafs-sys-channel"
+
 function genesisBlock-generate(){
     #Check Folder is exists
     if [ -d "channel-artifacts" ]; then
         rm -Rf channel-artifacts
     fi
     mkdir -p channel-artifacts
-    configtxgen -profile BafsOrdererGenesis -channelID $SYS_CHANNEL -outputBlock ./channel-artifacts/genesis.block
-    # configtxgen -profile BafsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+
+    configtxgen -profile BafsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
 }
 ##################################################
 # generate-orderer  crypto

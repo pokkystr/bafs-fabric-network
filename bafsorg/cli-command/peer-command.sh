@@ -1,29 +1,34 @@
 #!/bin/bash
-export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/peerOrganizations/bafsorg.com/users/Admin@bafsorg.com/msp
-export CORE_PEER_ADDRESS=peer0.bafsorg.com:7051
+#Config
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/users/Admin@bafsorg.oil.com/msp
+export CORE_PEER_ADDRESS=peer0.bafsorg.oil.com:7051
 export CORE_PEER_LOCALMSPID="bafsorgmsp"
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/peerOrganizations/bafsorg.com/peers/peer0.bafsorg.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/tls/ca.crt
 
-export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/ordererOrganizations/orderer.bafs.com/msp/tlscacerts/tlsca.orderer.bafs.com-cert.pem
+#Orderer
+export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/msp/tlscacerts/tlsca.oil.com-cert.pem
 export ORDERER_ADDRESS=10.146.0.4:7050
 
-export CHANNEL_NAME=tradeoilchannel
-export ANCHORS_NAME=channel-artifacts/bafsorgmspanchors
+#Param
+export ANCHORS_NAME=../channel-artifacts/bafsorgmspanchors
+export CHANNEL_TRADE=channel-trade-oil
+export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
-    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_NAME -f ./channel-artifacts/${CHANNEL_NAME}.tx --tls true --cafile $ORDERER_CA
-    echo "===================== Channel '$CHANNEL_NAME' created ===================== "
+    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${PROFILE_NAME}.tx --tls true --cafile $ORDERER_CA
+    echo "===================== Channel '$CHANNEL_TRADE' create ===================== "
     echo
-    sleep 1
+    sleep 3
 
-    peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
-    echo "===================== Channel '$CHANNEL_NAME' join ===================== "
+    peer channel join -b ${CHANNEL_TRADE}.block
+    echo "===================== Channel '$CHANNEL_TRADE' join ===================== "
     echo
-    sleep 1
+    sleep 3
 
-    peer channel update -o $ORDERER_ADDRESS -c $CHANNEL_NAME -f ${ANCHORS_NAME}.tx --tls true --cafile $ORDERER_CA
-    echo "===================== Channel '$CHANNEL_NAME' update ===================== "
+    peer channel update -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${ANCHORS_NAME}.tx --tls true --cafile $ORDERER_CA
+    echo "===================== Channel '$CHANNEL_TRADE' update ===================== "
     echo
+    sleep 3
 }
 
 joinChannel
