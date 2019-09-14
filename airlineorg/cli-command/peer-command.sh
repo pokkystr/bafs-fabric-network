@@ -15,9 +15,10 @@ export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
-    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${PROFILE_NAME}.tx --tls true --cafile $ORDERER_CA
+
+    peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls  --cafile $ORDERER_CA
     sleep 3
-    echo "===================== Channel '$CHANNEL_TRADE' create ===================== "
+    echo "===================== Channel '$CHANNEL_TRADE' fetch ===================== "
     echo
     
     peer channel join -b ${CHANNEL_TRADE}.block
@@ -25,9 +26,12 @@ function joinChannel(){
     echo "===================== Channel '$CHANNEL_TRADE' join ===================== "
     echo
     
-    peer channel update -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${ANCHORS_NAME}.tx --tls true --cafile $ORDERER_CA
+    peer channel update -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ${ANCHORS_NAME}.tx --tls true --cafile $ORDERER_CA
     echo "===================== Channel '$CHANNEL_TRADE' update ===================== "
     echo
 }
 
 joinChannel
+
+peer chaincode install -n airlinecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/java-chaincode/ >&log.txt
+peer chaincode instantiate -o 10.146.0.4:7050 --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n airlinecc -l java -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('airline.peer')" >&log.txt
