@@ -39,7 +39,7 @@ echo "===================== Channel bafsecc install ===================== "
 echo
 peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n bafsecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member')" >&log.txt
 cat log.txt
-echo "===================== Channel bafsecc install ===================== "
+echo "===================== Channel bafsecc instantiate ===================== "
 echo
 
 peer chaincode query -C $CHANNEL_TRADE -n bafsecc -c '{"Args":["queryInvoice","ticketNumber3"]}' >&log.txt

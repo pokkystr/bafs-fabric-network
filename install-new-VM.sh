@@ -35,5 +35,9 @@ sudo apt-get update
 apt-get -y update && apt-get -y install jq
 echo "Installing jq"
 
+sudo apt-get update
+sudo apt-get install unzip
+
+sudo apt-get update
 installDocker
 installDockerCompose

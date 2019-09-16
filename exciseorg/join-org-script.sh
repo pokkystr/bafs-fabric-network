@@ -6,11 +6,11 @@ export CA_PRIVATE_KEY=$(cd ./channel-artifacts/crypto-config/peerOrganizations/e
 
 function startDockerPeer(){
     #Compose Ca Peer1 Cli
-    docker-compose -f airline-compose.yaml  down
+    docker-compose -f excise-compose.yaml  down
     echo "Docker Compose airline-Compose ... down"
 
-    docker-compose -f airline-compose.yaml  up -d 2>&1
-    echo "Docker Compose airline-Compose ... up"
+    docker-compose -f excise-compose.yaml  up -d 2>&1
+    echo "Docker Compose excise-Compose ... up"
     echo
 }
 
@@ -22,6 +22,9 @@ function startDockerCli(){
 }
 
 docker rm $(docker ps -a -f status=exited -q)
+
+docker network rm excise
+docker network create -d bridge excise
 
 startDockerPeer
 startDockerCli

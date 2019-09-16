@@ -16,7 +16,7 @@ export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
 
-    peer channel fetch 0 ${CHANNEL_PP10}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA    
+    peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA    
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' fetch ===================== "
     echo
@@ -39,7 +39,7 @@ echo "===================== Channel exciseecc install ===================== "
 echo
 peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n exciseecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member')"
 cat log.txt
-echo "===================== Channel exciseecc install ===================== "
+echo "===================== Channel exciseecc instantiate ===================== "
 echo
 
 peer chaincode query -C $CHANNEL_TRADE -n exciseecc -c '{"Args":["queryInvoice","ticketNumber3"]}'

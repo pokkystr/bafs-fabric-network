@@ -53,3 +53,5 @@ cp -R ../chaincode-bafs/ ../bafsorg/channel-artifacts/chaincode/
 # zip bafsorg.zip -r ../bafsorg
 cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/chaincode/
 # zip airlineorg.zip -r ../airlineorg
+cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/exciseorg/
+# zip airlineorg.zip -r ../exciseorg

@@ -25,5 +25,8 @@ function startDockerCli(){
 
 docker rm $(docker ps -a -f status=exited -q)
 
+docker network rm bafs
+docker network create -d bridge bafs
+
 startDockerPeer
 startDockerCli
