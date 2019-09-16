@@ -48,12 +48,14 @@ genesisBlock-generate
 . utility-generate.sh
 generate-utility
 
-
 cp -R ../chaincode-bafs/ ../bafsorg/channel-artifacts/chaincode/
-# zip bafsorg.zip -r ../bafsorg
-cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/chaincode/
-# zip airlineorg.zip -r ../airlineorg
 cp -R ../chaincode-bafs/ ../exciseorg/channel-artifacts/chaincode/
-# zip airlineorg.zip -r ../exciseorg
 cp -R ../chaincode-bafs/ ../cdorg/channel-artifacts/chaincode/
-# zip airlineorg.zip -r ../exciseorg
+# cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/chaincode/
+
+
+# zip orderer.zip -r ../orderer
+# zip bafsorg.zip -r ../bafsorg
+# zip airlineorg.zip -r ../airlineorg
+# zip exciseorg.zip -r ../exciseorg
+# zip cdorg.zip -r ../cdorg

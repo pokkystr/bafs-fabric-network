@@ -36,13 +36,13 @@ function installAndinstantiate(){
     cat installLog.txt
     echo "===================== Channel cdecc install ===================== "
     echo
-    sleep 2
+    sleep 5
 
     peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n cdecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
     cat instantiateLog.txt
     echo "===================== Channel cdecc instantiate ===================== "
     echo
-    sleep 3
+    sleep 5
 }
 
 joinChannel

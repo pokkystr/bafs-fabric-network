@@ -39,5 +39,8 @@ sudo apt-get update
 sudo apt-get install unzip
 
 sudo apt-get update
+sudo apt-get install vim
+
+sudo apt-get update
 installDocker
 installDockerCompose

@@ -10,18 +10,18 @@ export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-art
 export ORDERER_ADDRESS=10.146.0.4:7050
 
 #Param
-export ANCHORS_NAME=../channel-artifacts/airlineorgmspanchors
+export ANCHORS_NAME=./channel-artifacts/airlineorgmspanchors
 export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
     peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA    
-    sleep 3
+    sleep 5
     echo "===================== Channel '$CHANNEL_TRADE' fetch ===================== "
     echo
     
     peer channel join -b ${CHANNEL_TRADE}.block
-    sleep 3
+    sleep 5
     echo "===================== Channel '$CHANNEL_TRADE' join ===================== "
     echo
     
@@ -31,8 +31,3 @@ function joinChannel(){
 }
 
 joinChannel
-
-peer chaincode install -n airlinecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/ >&log.txt
-cat log.txt
-echo "===================== Channel bafsecc install ===================== "
-echo

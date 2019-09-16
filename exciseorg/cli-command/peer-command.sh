@@ -14,9 +14,10 @@ export ANCHORS_NAME=./channel-artifacts/exciseorgmspanchors
 export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
+
 function joinChannel(){
 
-    peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA    
+    peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' fetch ===================== "
     echo
@@ -36,13 +37,13 @@ function installAndinstantiate(){
     cat installLog.txt
     echo "===================== Channel exciseecc install ===================== "
     echo
-    sleep 2
+    sleep 5
 
-    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n exciseecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
+    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n exciseecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('exciseorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
     cat instantiateLog.txt
     echo "===================== Channel exciseecc instantiate ===================== "
     echo
-    sleep 3
+    sleep 5
 }
 
 joinChannel

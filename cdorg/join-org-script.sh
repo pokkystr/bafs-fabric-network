@@ -7,11 +7,11 @@ export CA_PRIVATE_KEY=$(cd ./channel-artifacts/crypto-config/peerOrganizations/c
 MODE=$1
 shift
 if [ "$MODE" == "up" ]; then
-    docker network rm excise
-    docker network create -d bridge excise
+    docker network rm cd
+    docker network create -d bridge cd
 
-    docker-compose -f excise-compose.yaml  up -d 2>&1
-    echo "Docker Compose excise-Compose ... up"
+    docker-compose -f cd-compose.yaml  up -d 2>&1
+    echo "Docker Compose cd-Compose ... up"
     echo
     
     docker exec cli.cdorg.oil.com ./cli-command/peer-command.sh
@@ -19,11 +19,11 @@ if [ "$MODE" == "up" ]; then
     echo
 
 elif [ "$MODE" == "down" ]; then
-    docker-compose -f excise-compose.yaml down --volumes --remove-orphans
+    docker-compose -f cd-compose.yaml down --volumes --remove-orphans
     echo "Docker exec cli.cdorg.oil.com and peer comman ... Down"
     echo
 
-    docker network rm excise
+    docker network rm cd
     docker rm $(docker ps -a -f status=exited -q)
 else 
   echo "Please input up or down...."

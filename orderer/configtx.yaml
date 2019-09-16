@@ -308,17 +308,17 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *bafsorg
-                    - *airlineorg
                     - *exciseorg
                     - *cdorg
+                    - *airlineorg
     TradeOilChannel:
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *bafsorg
-                - *airlineorg
                 - *exciseorg
                 - *cdorg
+                - *airlineorg
             Capabilities:
                 <<: *ApplicationCapabilities
