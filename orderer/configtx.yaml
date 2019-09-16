@@ -67,26 +67,26 @@ Organizations:
             - Host: 10.148.0.3
               Port: 7051
               
-    # - &moforg
-    #     Name: moforgmsp
-    #     ID: moforgmsp
-    #     MSPDir: crypto-config/peerOrganizations/moforg.oil.com/msp
-    #     Policies: &moforgPolicies
-    #         Readers:
-    #             Type: Signature
-    #             Rule: "OR('moforgmsp.member')"
-    #         Writers:
-    #             Type: Signature
-    #             Rule: "OR('moforgmsp.member')"
-    #         Admins:
-    #             Type: Signature
-    #             Rule: "OR('moforgmsp.admin')"
-    #         Endorsement:
-    #             Type: Signature
-    #             Rule: "OR('moforgmsp.member')"
-    #     AnchorPeers:
-    #         - Host: peer0.moforg.oil.com
-    #           Port: 7051
+    - &cdorg
+        Name: cdorgmsp
+        ID: cdorgmsp
+        MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
+        Policies: &cdorgPolicies
+            Readers:
+                Type: Signature
+                Rule: "OR('cdorgmsp.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('cdorgmsp.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('cdorgmsp.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('cdorgmsp.member')"
+        AnchorPeers:
+            - Host: 10.128.0.4
+              Port: 7051
 
 
 ################################################################################
@@ -310,7 +310,7 @@ Profiles:
                     - *bafsorg
                     - *airlineorg
                     - *exciseorg
-                    # - *moforg
+                    - *cdorg
     TradeOilChannel:
         Consortium: SampleConsortium
         Application:
@@ -319,6 +319,6 @@ Profiles:
                 - *bafsorg
                 - *airlineorg
                 - *exciseorg
-                # - *moforg
+                - *cdorg
             Capabilities:
                 <<: *ApplicationCapabilities

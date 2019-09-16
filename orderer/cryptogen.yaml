@@ -10,6 +10,7 @@ OrdererOrgs:
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
           - "10.148.0.3" #excise
+          - "10.128.0.4" #cd
       - Hostname: orderer2
         SANS:
           - "localhost"
@@ -18,6 +19,7 @@ OrdererOrgs:
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
           - "10.148.0.3" #excise
+          - "10.128.0.4" #cd
       - Hostname: orderer3
         SANS:
           - "localhost"
@@ -26,6 +28,7 @@ OrdererOrgs:
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
           - "10.148.0.3" #excise
+          - "10.128.0.4" #cd
       - Hostname: orderer4
         SANS:
           - "localhost"
@@ -34,6 +37,7 @@ OrdererOrgs:
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
           - "10.148.0.3" #excise
+          - "10.128.0.4" #cd
       - Hostname: orderer5
         SANS:
           - "localhost"
@@ -42,6 +46,7 @@ OrdererOrgs:
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
           - "10.148.0.3" #excise
+          - "10.128.0.4" #cd
 
 PeerOrgs:
   - Name: bafs
@@ -57,6 +62,7 @@ PeerOrgs:
         - "10.128.0.2" #bafs
         - "10.128.0.3" #airline
         - "10.148.0.3" #excise
+        - "10.128.0.4" #cd
     Users:
       Count: 1
 
@@ -73,6 +79,7 @@ PeerOrgs:
         - "10.128.0.2" #bafs
         - "10.128.0.3" #airline
         - "10.148.0.3" #excise
+        - "10.128.0.4" #cd
     Users:
       Count: 1
       
@@ -89,22 +96,23 @@ PeerOrgs:
         - "10.128.0.2" #bafs
         - "10.128.0.3" #airline
         - "10.148.0.3" #excise
+        - "10.128.0.4" #cd
     Users:
       Count: 1
   
-  # - Name: moforg
-  #   Domain: moforg.oil.com
-  #   CA:
-  #      Hostname: ca # implicitly ca.ind.jedi.com
-  #   Template:
-  #     Count: 2
-  #     SANS:
-  #        - "localhost"
-  #        - "127.0.0.1"
-  #        - "10.9.214.235"
-  #        - "10.9.214.236"
-  #        - "10.9.214.237"
-  #        - "10.9.211.109"
-  #        - "10.9.211.110"
-  #   Users:
-  #     Count: 1
+  - Name: cdorg
+    Domain: cdorg.oil.com
+    CA:
+       Hostname: ca # implicitly ca.ind.jedi.com
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+        - "127.0.0.1"
+        - "10.146.0.4" #orderer
+        - "10.128.0.2" #bafs
+        - "10.128.0.3" #airline
+        - "10.148.0.3" #excise
+        - "10.128.0.4" #cd
+    Users:
+      Count: 1

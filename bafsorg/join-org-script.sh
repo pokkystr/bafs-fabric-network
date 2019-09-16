@@ -4,29 +4,28 @@
 echo "KeySK " $(cd ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/ca && ls *_sk)
 export CA_PRIVATE_KEY=$(cd ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/ca && ls *_sk)
 
-function startDockerPeer(){
-    #Compose Ca Peer1 Cli
-    docker-compose -f bafs-compose.yaml  down
-    echo "Docker Compose bafs-Compose ... down"
+MODE=$1
+shift
+if [ "$MODE" == "up" ]; then
+    docker network rm bafs
+    docker network create -d bridge bafs
 
     docker-compose -f bafs-compose.yaml  up -d 2>&1
     echo "Docker Compose bafs-Compose ... up"
     echo
-    sleep 3
-}
-
-function startDockerCli(){
-    #Docker exec cli and peer comman
+    
     docker exec cli.bafsorg.oil.com ./cli-command/peer-command.sh
     echo "Docker exec cli.bafsorg.oil.com and peer comman ...Done"
     echo
-    sleep 2
-}
 
-docker rm $(docker ps -a -f status=exited -q)
+elif [ "$MODE" == "down" ]; then
+    docker-compose -f bafs-compose.yaml down --volumes --remove-orphans
+    echo "Docker exec cli.bafsorg.oil.com and peer comman ... Down"
+    echo
 
-docker network rm bafs
-docker network create -d bridge bafs
-
-startDockerPeer
-startDockerCli
+    docker network rm bafs
+    docker rm $(docker ps -a -f status=exited -q)
+else 
+  echo "Please input up or down"
+  exit 1
+fi

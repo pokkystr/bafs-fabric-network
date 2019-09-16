@@ -10,12 +10,12 @@ export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-art
 export ORDERER_ADDRESS=10.146.0.4:7050
 
 #Param
-export ANCHORS_NAME=../channel-artifacts/bafsorgmspanchors
+export ANCHORS_NAME=./channel-artifacts/bafsorgmspanchors
 export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
-    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ../channel-artifacts/${PROFILE_NAME}.tx --tls true --cafile $ORDERER_CA
+    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${PROFILE_NAME}.tx --tls true --cafile $ORDERER_CA
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' create ===================== "
     echo
@@ -30,17 +30,22 @@ function joinChannel(){
     echo
     sleep 3
 }
-sleep 5
+
+function installAndinstantiate(){
+    peer chaincode install -n bafsecc -v j.1.0 -l java -p ./channel-artifacts/chaincode/ >&installLog.txt
+    cat installLog.txt
+    echo "===================== Channel bafsecc install ===================== "
+    echo
+    sleep 2
+    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n bafsecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
+    cat instantiateLog.txt
+    echo "===================== Channel bafsecc instantiate ===================== "
+    echo
+    sleep 3
+}
+
 joinChannel
+installAndinstantiate
 
-peer chaincode install -n bafsecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/ >&log.txt
-cat log.txt
-echo "===================== Channel bafsecc install ===================== "
-echo
-peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n bafsecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member')" >&log.txt
-cat log.txt
-echo "===================== Channel bafsecc instantiate ===================== "
-echo
-
-peer chaincode query -C $CHANNEL_TRADE -n bafsecc -c '{"Args":["queryInvoice","ticketNumber3"]}' >&log.txt
-cat log.txt
+peer chaincode query -C $CHANNEL_TRADE -n bafsecc -c '{"Args":["queryInvoice","ticketNumber3"]}' >&querylog.txt
+cat querylog.txt

@@ -10,7 +10,7 @@ export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-art
 export ORDERER_ADDRESS=10.146.0.4:7050
 
 #Param
-export ANCHORS_NAME=../channel-artifacts/exciseorgmspanchors
+export ANCHORS_NAME=./channel-artifacts/exciseorgmspanchors
 export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
@@ -31,15 +31,22 @@ function joinChannel(){
     echo
 }
 
+function installAndinstantiate(){
+    peer chaincode install -n exciseecc -v j.1.0 -l java -p ./channel-artifacts/chaincode/ >&installLog.txt
+    cat installLog.txt
+    echo "===================== Channel exciseecc install ===================== "
+    echo
+    sleep 2
+
+    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n exciseecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
+    cat instantiateLog.txt
+    echo "===================== Channel exciseecc instantiate ===================== "
+    echo
+    sleep 3
+}
+
 joinChannel
+installAndinstantiate
 
-peer chaincode install -n exciseecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/ >&log.txt
-cat log.txt
-echo "===================== Channel exciseecc install ===================== "
-echo
-peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n exciseecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member')"
-cat log.txt
-echo "===================== Channel exciseecc instantiate ===================== "
-echo
-
-peer chaincode query -C $CHANNEL_TRADE -n exciseecc -c '{"Args":["queryInvoice","ticketNumber3"]}'
+peer chaincode query -C $CHANNEL_TRADE -n exciseecc -c '{"Args":["queryInvoice","ticketNumber3"]}' >&querylog.txt
+cat querylog.txt
