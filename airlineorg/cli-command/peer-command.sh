@@ -15,8 +15,6 @@ export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
-
-    
     peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA    
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' fetch ===================== "
