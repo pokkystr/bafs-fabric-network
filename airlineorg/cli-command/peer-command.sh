@@ -16,7 +16,8 @@ export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
 
-    peer channel fetch 0 ${CHANNEL_TRADE}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls  --cafile $ORDERER_CA
+    
+    peer channel fetch 0 ${CHANNEL_PP10}.block -o $ORDERER_ADDRESS -c $CHANNEL_TRADE --tls --cafile $ORDERER_CA    
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' fetch ===================== "
     echo
@@ -33,5 +34,7 @@ function joinChannel(){
 
 joinChannel
 
-peer chaincode install -n airlinecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/java-chaincode/ >&log.txt
-peer chaincode instantiate -o 10.146.0.4:7050 --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n airlinecc -l java -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('airline.peer')" >&log.txt
+peer chaincode install -n airlinecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/ >&log.txt
+cat log.txt
+echo "===================== Channel bafsecc install ===================== "
+echo

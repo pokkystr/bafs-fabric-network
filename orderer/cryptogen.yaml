@@ -9,6 +9,7 @@ OrdererOrgs:
           - "10.146.0.4" #orderer
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
+          - "10.148.0.3" #excise
       - Hostname: orderer2
         SANS:
           - "localhost"
@@ -16,6 +17,7 @@ OrdererOrgs:
           - "10.146.0.4" #orderer
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
+          - "10.148.0.3" #excise
       - Hostname: orderer3
         SANS:
           - "localhost"
@@ -23,6 +25,7 @@ OrdererOrgs:
           - "10.146.0.4" #orderer
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
+          - "10.148.0.3" #excise
       - Hostname: orderer4
         SANS:
           - "localhost"
@@ -30,6 +33,7 @@ OrdererOrgs:
           - "10.146.0.4" #orderer
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
+          - "10.148.0.3" #excise
       - Hostname: orderer5
         SANS:
           - "localhost"
@@ -37,6 +41,7 @@ OrdererOrgs:
           - "10.146.0.4" #orderer
           - "10.128.0.2" #bafs
           - "10.128.0.3" #airline
+          - "10.148.0.3" #excise
 
 PeerOrgs:
   - Name: bafs
@@ -51,6 +56,7 @@ PeerOrgs:
         - "10.146.0.4" #orderer
         - "10.128.0.2" #bafs
         - "10.128.0.3" #airline
+        - "10.148.0.3" #excise
     Users:
       Count: 1
 
@@ -58,7 +64,6 @@ PeerOrgs:
     Domain: airlineorg.oil.com
     CA:
        Hostname: ca # implicitly ca.ind.jedi.com
-    EnableNodeOUs: false
     Template:
       Count: 2
       SANS:
@@ -67,32 +72,30 @@ PeerOrgs:
         - "10.146.0.4" #orderer
         - "10.128.0.2" #bafs
         - "10.128.0.3" #airline
+        - "10.148.0.3" #excise
     Users:
       Count: 1
       
-  # - Name: ktborg
-  #   Domain: ktborg.oil.com
-  #   CA:
-  #      Hostname: ca # implicitly ca.ind.jedi.com
-  #   EnableNodeOUs: false
-  #   Template:
-  #     Count: 2
-  #     SANS:
-  #        - "localhost"
-  #        - "127.0.0.1"
-  #        - "10.9.214.235"
-  #        - "10.9.214.236"
-  #        - "10.9.214.237"
-  #        - "10.9.211.109"
-  #        - "10.9.211.110"
-  #   Users:
-  #     Count: 1
+  - Name: exciseorg
+    Domain: exciseorg.oil.com
+    CA:
+       Hostname: ca # implicitly ca.ind.jedi.com
+    Template:
+      Count: 2
+      SANS:
+        - "localhost"
+        - "127.0.0.1"
+        - "10.146.0.4" #orderer
+        - "10.128.0.2" #bafs
+        - "10.128.0.3" #airline
+        - "10.148.0.3" #excise
+    Users:
+      Count: 1
   
   # - Name: moforg
   #   Domain: moforg.oil.com
   #   CA:
   #      Hostname: ca # implicitly ca.ind.jedi.com
-  #   EnableNodeOUs: false
   #   Template:
   #     Count: 2
   #     SANS:

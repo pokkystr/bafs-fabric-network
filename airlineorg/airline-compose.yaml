@@ -5,6 +5,7 @@ volumes:
 
 networks:
   airline:
+    external: true
 
 services:
   ca.airlineorg.oil.com:

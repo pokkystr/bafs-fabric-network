@@ -22,6 +22,6 @@ function startDockerCli(){
     echo
     sleep 2
 }
-
+docker rm $(docker ps -a -f status=exited -q)
 startDockerPeer
 startDockerCli

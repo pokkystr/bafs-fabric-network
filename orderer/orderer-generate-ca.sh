@@ -31,6 +31,9 @@ function genesisBlock-generate(){
 
     configtxgen -profile BafsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
 }
+
+docker rm $(docker ps -a -f status=exited -q)
+
 ##################################################
 # generate-orderer  crypto
 ##################################################
@@ -44,3 +47,9 @@ genesisBlock-generate
 # import channel-generate.sh
 . utility-generate.sh
 generate-utility
+
+
+cp -R ../chaincode-bafs/ ../bafsorg/channel-artifacts/chaincode/
+# zip bafsorg.zip -r ../bafsorg
+cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/chaincode/
+# zip airlineorg.zip -r ../airlineorg

@@ -15,7 +15,7 @@ export CHANNEL_TRADE=channel-trade-oil
 export PROFILE_NAME=tradeoilchannel
 
 function joinChannel(){
-    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${PROFILE_NAME}.tx --tls true --cafile $ORDERER_CA
+    peer channel create -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ../channel-artifacts/${PROFILE_NAME}.tx --tls true --cafile $ORDERER_CA
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' create ===================== "
     echo
@@ -24,10 +24,23 @@ function joinChannel(){
     sleep 3
     echo "===================== Channel '$CHANNEL_TRADE' join ===================== "
     echo
-    
-    peer channel update -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ./channel-artifacts/${ANCHORS_NAME}.tx --tls true --cafile $ORDERER_CA
+
+    peer channel update -o $ORDERER_ADDRESS -c $CHANNEL_TRADE -f ${ANCHORS_NAME}.tx --tls true --cafile $ORDERER_CA
     echo "===================== Channel '$CHANNEL_TRADE' update ===================== "
     echo
+    sleep 3
 }
-
+sleep 5
 joinChannel
+
+peer chaincode install -n bafsecc -v j.1.0 -l java -p ../channel-artifacts/chaincode/ >&log.txt
+cat log.txt
+echo "===================== Channel bafsecc install ===================== "
+echo
+peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n bafsecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member')" >&log.txt
+cat log.txt
+echo "===================== Channel bafsecc install ===================== "
+echo
+
+peer chaincode query -C $CHANNEL_TRADE -n bafsecc -c '{"Args":["queryInvoice","ticketNumber3"]}' >&log.txt
+cat log.txt

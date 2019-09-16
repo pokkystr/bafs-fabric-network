@@ -46,26 +46,26 @@ Organizations:
             - Host: 10.128.0.3
               Port: 7051
 
-    # - &ktborg
-    #     Name: ktborgmsp
-    #     ID: ktborgmsp
-    #     MSPDir: crypto-config/peerOrganizations/ktborg.oil.com/msp
-    #     Policies: &ktborgPolicies
-    #         Readers:
-    #             Type: Signature
-    #             Rule: "OR('ktborgmsp.member')"
-    #         Writers:
-    #             Type: Signature
-    #             Rule: "OR('ktborgmsp.member')"
-    #         Admins:
-    #             Type: Signature
-    #             Rule: "OR('ktborgmsp.admin')"
-    #         Endorsement:
-    #             Type: Signature
-    #             Rule: "OR('ktborgmsp.member')"
-    #     AnchorPeers:
-    #         - Host: peer0.ktborg.oil.com
-    #           Port: 7051
+    - &exciseorg
+        Name: exciseorgmsp
+        ID: exciseorgmsp
+        MSPDir: crypto-config/peerOrganizations/exciseorg.oil.com/msp
+        Policies: &exciseorgPolicies
+            Readers:
+                Type: Signature
+                Rule: "OR('exciseorgmsp.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('exciseorgmsp.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('exciseorgmsp.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('exciseorgmsp.member')"
+        AnchorPeers:
+            - Host: 10.148.0.3
+              Port: 7051
               
     # - &moforg
     #     Name: moforgmsp
@@ -193,10 +193,10 @@ Orderer: &OrdererDefaults
 
     Addresses:
         - 10.146.0.4:7050
-        # - 10.146.0.4:8050
-        # - 10.146.0.4:9050
-        # - 10.146.0.4:10050
-        # - 10.146.0.4:11050
+        - 10.146.0.4:8050
+        - 10.146.0.4:9050
+        - 10.146.0.4:10050
+        - 10.146.0.4:11050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -309,7 +309,7 @@ Profiles:
                 Organizations:
                     - *bafsorg
                     - *airlineorg
-                    # - *ktborg
+                    - *exciseorg
                     # - *moforg
     TradeOilChannel:
         Consortium: SampleConsortium
@@ -318,6 +318,7 @@ Profiles:
             Organizations:
                 - *bafsorg
                 - *airlineorg
+                - *exciseorg
                 # - *moforg
             Capabilities:
                 <<: *ApplicationCapabilities
