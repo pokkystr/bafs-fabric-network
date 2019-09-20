@@ -33,7 +33,7 @@ function joinChannel(){
 }
 
 function installAndinstantiate(){
-    peer chaincode install -n exciseecc -v j.1.0 -l java -p ./channel-artifacts/chaincode/ >&installLog.txt
+    peer chaincode install -n invoice -v j.1.0 -l java -p /opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/chaincode/ >&installLog.txt
     cat installLog.txt
     echo "===================== Channel exciseecc install ===================== "
     echo

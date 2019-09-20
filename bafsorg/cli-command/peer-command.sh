@@ -32,14 +32,14 @@ function joinChannel(){
 }
 
 function installAndinstantiate(){
-    peer chaincode install -n bafsecc -v j.1.0 -l java -p ./channel-artifacts/chaincode/ >&installLog.txt
+    peer chaincode install -n invoice -v j.1.0 -l java -p /opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/chaincode/ >&installLog.txt
     cat installLog.txt
-    echo "===================== Channel bafsecc install ===================== "
+    echo "===================== Channel invoice install ===================== "
     echo
     sleep 2
-    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n bafsecc -l java -v j.1.0 -c '{"Args":["init"]}' -P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
-    cat instantiateLog.txt
-    echo "===================== Channel bafsecc instantiate ===================== "
+    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n invoice -l java -v j.1.1 -c '{"Args":["init"]}' #-P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
+    # cat instantiateLog.txt
+    echo "===================== Channel invoice instantiate ===================== "
     echo
     sleep 3
 }
@@ -47,5 +47,5 @@ function installAndinstantiate(){
 joinChannel
 installAndinstantiate
 
-peer chaincode query -C $CHANNEL_TRADE -n bafsecc -c '{"Args":["queryInvoice","ticketNumber3"]}' >&querylog.txt
+peer chaincode query -C $CHANNEL_TRADE -n invoice -c '{"Args":["queryInvoice","ticketNumber3"]}' >&querylog.txt
 cat querylog.txt
