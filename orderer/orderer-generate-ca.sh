@@ -37,8 +37,9 @@ docker rm $(docker ps -a -f status=exited -q)
 ##################################################
 # generate-orderer  crypto
 ##################################################
-orderer-generateCerts
-genesisBlock-generate
+
+# orderer-generateCerts
+# genesisBlock-generate
 
 ##################################################
 # generate-channel create file block and tx then
