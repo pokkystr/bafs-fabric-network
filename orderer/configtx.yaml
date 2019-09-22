@@ -18,75 +18,74 @@ Organizations:
             Admins:
                 Type: Signature
                 Rule: "OR('bafsorgmsp.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('bafsorgmsp.member')"
         AnchorPeers:
-            - Host: 10.128.0.2
+            - Host: 192.168.1.52
               Port: 7051
 
-    - &airlineorg
-        Name: airlineorgmsp
-        ID: airlineorgmsp
-        MSPDir: crypto-config/peerOrganizations/airlineorg.oil.com/msp
-        Policies: &airlineorgPolicies
-            Readers:
-                Type: Signature
-                Rule: "OR('airlineorgmsp.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('airlineorgmsp.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('airlineorgmsp.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('airlineorgmsp.member')"
-        AnchorPeers:
-            - Host: 10.128.0.3
-              Port: 7051
+# 192.168.1.52
 
-    - &exciseorg
-        Name: exciseorgmsp
-        ID: exciseorgmsp
-        MSPDir: crypto-config/peerOrganizations/exciseorg.oil.com/msp
-        Policies: &exciseorgPolicies
-            Readers:
-                Type: Signature
-                Rule: "OR('exciseorgmsp.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('exciseorgmsp.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('exciseorgmsp.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('exciseorgmsp.member')"
-        AnchorPeers:
-            - Host: 10.148.0.3
-              Port: 7051
+    # - &airlineorg
+    #     Name: airlineorgmsp
+    #     ID: airlineorgmsp
+    #     MSPDir: crypto-config/peerOrganizations/airlineorg.oil.com/msp
+    #     Policies: &airlineorgPolicies
+    #         Readers:
+    #             Type: Signature
+    #             Rule: "OR('airlineorgmsp.member')"
+    #         Writers:
+    #             Type: Signature
+    #             Rule: "OR('airlineorgmsp.member')"
+    #         Admins:
+    #             Type: Signature
+    #             Rule: "OR('airlineorgmsp.admin')"
+    #         Endorsement:
+    #             Type: Signature
+    #             Rule: "OR('airlineorgmsp.member')"
+    #     AnchorPeers:
+    #         - Host: 10.128.0.3
+    #           Port: 7051
+
+    # - &exciseorg
+    #     Name: exciseorgmsp
+    #     ID: exciseorgmsp
+    #     MSPDir: crypto-config/peerOrganizations/exciseorg.oil.com/msp
+    #     Policies: &exciseorgPolicies
+    #         Readers:
+    #             Type: Signature
+    #             Rule: "OR('exciseorgmsp.member')"
+    #         Writers:
+    #             Type: Signature
+    #             Rule: "OR('exciseorgmsp.member')"
+    #         Admins:
+    #             Type: Signature
+    #             Rule: "OR('exciseorgmsp.admin')"
+    #         Endorsement:
+    #             Type: Signature
+    #             Rule: "OR('exciseorgmsp.member')"
+    #     AnchorPeers:
+    #         - Host: 10.148.0.3
+    #           Port: 7051
               
-    - &cdorg
-        Name: cdorgmsp
-        ID: cdorgmsp
-        MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
-        Policies: &cdorgPolicies
-            Readers:
-                Type: Signature
-                Rule: "OR('cdorgmsp.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('cdorgmsp.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('cdorgmsp.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('cdorgmsp.member')"
-        AnchorPeers:
-            - Host: 10.128.0.4
-              Port: 7051
+    # - &cdorg
+    #     Name: cdorgmsp
+    #     ID: cdorgmsp
+    #     MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
+    #     Policies: &cdorgPolicies
+    #         Readers:
+    #             Type: Signature
+    #             Rule: "OR('cdorgmsp.member')"
+    #         Writers:
+    #             Type: Signature
+    #             Rule: "OR('cdorgmsp.member')"
+    #         Admins:
+    #             Type: Signature
+    #             Rule: "OR('cdorgmsp.admin')"
+    #         Endorsement:
+    #             Type: Signature
+    #             Rule: "OR('cdorgmsp.member')"
+    #     AnchorPeers:
+    #         - Host: 10.128.0.4
+    #           Port: 7051
 
 
 ################################################################################
@@ -192,11 +191,11 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - 10.146.0.4:7050
-        - 10.146.0.4:8050
-        - 10.146.0.4:9050
-        - 10.146.0.4:10050
-        - 10.146.0.4:11050
+        - 192.168.1.52:7050
+        - 192.168.1.52:8050
+        - 192.168.1.52:9050
+        - 192.168.1.52:10050
+        - 192.168.1.52:11050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -222,23 +221,23 @@ Orderer: &OrdererDefaults
         # a subset of the host:port items enumerated in this list should be
         # replicated under the Orderer.Addresses key above.
         Consenters:
-            - Host: 10.146.0.4
+            - Host: 192.168.1.52
               Port: 7050
               ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
-            - Host: 10.146.0.4
+            - Host: 192.168.1.52
               Port: 8050
               ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
-            - Host: 10.146.0.4
+            - Host: 192.168.1.52
               Port: 9050
               ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
-            - Host: 10.146.0.4
+            - Host: 192.168.1.52
               Port: 10050
               ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
-            - Host: 10.146.0.4
+            - Host: 192.168.1.52
               Port: 11050
               ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
               ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
@@ -308,17 +307,17 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *bafsorg
-                    - *exciseorg
-                    - *cdorg
-                    - *airlineorg
+                    # - *exciseorg
+                    # - *cdorg
+                    # - *airlineorg
     TradeOilChannel:
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *bafsorg
-                - *exciseorg
-                - *cdorg
-                - *airlineorg
+                # - *exciseorg
+                # - *cdorg
+                # - *airlineorg
             Capabilities:
                 <<: *ApplicationCapabilities

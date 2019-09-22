@@ -4,49 +4,54 @@ OrdererOrgs:
     Specs:
       - Hostname: orderer
         SANS:
-          - "localhost"
-          - "127.0.0.1"
-          - "10.146.0.4" #orderer
-          - "10.128.0.2" #bafs
-          - "10.128.0.3" #airline
-          - "10.148.0.3" #excise
-          - "10.128.0.4" #cd
+        #   - "localhost"
+        #   - "127.0.0.1"
+          - "192.168.1.52"
+          # - "10.146.0.4" #orderer
+          # - "10.128.0.2" #bafs
+          # - "10.128.0.3" #airline
+          # - "10.148.0.3" #excise
+          # - "10.128.0.4" #cd
       - Hostname: orderer2
         SANS:
-          - "localhost"
-          - "127.0.0.1"
-          - "10.146.0.4" #orderer
-          - "10.128.0.2" #bafs
-          - "10.128.0.3" #airline
-          - "10.148.0.3" #excise
-          - "10.128.0.4" #cd
+        #   - "localhost"
+        #   - "127.0.0.1"
+          - "192.168.1.52"
+          # - "10.146.0.4" #orderer
+          # - "10.128.0.2" #bafs
+          # - "10.128.0.3" #airline
+          # - "10.148.0.3" #excise
+          # - "10.128.0.4" #cd
       - Hostname: orderer3
         SANS:
-          - "localhost"
-          - "127.0.0.1"
-          - "10.146.0.4" #orderer
-          - "10.128.0.2" #bafs
-          - "10.128.0.3" #airline
-          - "10.148.0.3" #excise
-          - "10.128.0.4" #cd
+        #   - "localhost"
+        #   - "127.0.0.1"
+          - "192.168.1.52"
+          # - "10.146.0.4" #orderer
+          # - "10.128.0.2" #bafs
+          # - "10.128.0.3" #airline
+          # - "10.148.0.3" #excise
+          # - "10.128.0.4" #cd
       - Hostname: orderer4
         SANS:
-          - "localhost"
-          - "127.0.0.1"
-          - "10.146.0.4" #orderer
-          - "10.128.0.2" #bafs
-          - "10.128.0.3" #airline
-          - "10.148.0.3" #excise
-          - "10.128.0.4" #cd
+        #   - "localhost"
+        #   - "127.0.0.1"
+          - "192.168.1.52"
+          # - "10.146.0.4" #orderer
+          # - "10.128.0.2" #bafs
+          # - "10.128.0.3" #airline
+          # - "10.148.0.3" #excise
+          # - "10.128.0.4" #cd
       - Hostname: orderer5
         SANS:
-          - "localhost"
-          - "127.0.0.1"
-          - "10.146.0.4" #orderer
-          - "10.128.0.2" #bafs
-          - "10.128.0.3" #airline
-          - "10.148.0.3" #excise
-          - "10.128.0.4" #cd
+        #   - "localhost"
+        #   - "127.0.0.1"
+          - "192.168.1.52"
+          # - "10.146.0.4" #orderer
+          # - "10.128.0.2" #bafs
+          # - "10.128.0.3" #airline
+          # - "10.148.0.3" #excise
+          # - "10.128.0.4" #cd
 
 PeerOrgs:
   - Name: bafs
@@ -55,64 +60,68 @@ PeerOrgs:
        Hostname: ca # implicitly ca.ind.jedi.com
     Template:
       Count: 2
-      SANS:
-        - "localhost"
-        - "127.0.0.1"
-        - "10.146.0.4" #orderer
-        - "10.128.0.2" #bafs
-        - "10.128.0.3" #airline
-        - "10.148.0.3" #excise
-        - "10.128.0.4" #cd
+      # SANS:
+      #   - "localhost"
+      #   - "127.0.0.1"
+      #   - "192.168.1.52"
+        # - "10.146.0.4" #orderer
+        # - "10.128.0.2" #bafs
+        # - "10.128.0.3" #airline
+        # - "10.148.0.3" #excise
+        # - "10.128.0.4" #cd
     Users:
       Count: 1
 
-  - Name: airlineorg
-    Domain: airlineorg.oil.com
-    CA:
-       Hostname: ca # implicitly ca.ind.jedi.com
-    Template:
-      Count: 2
-      SANS:
-        - "localhost"
-        - "127.0.0.1"
-        - "10.146.0.4" #orderer
-        - "10.128.0.2" #bafs
-        - "10.128.0.3" #airline
-        - "10.148.0.3" #excise
-        - "10.128.0.4" #cd
-    Users:
-      Count: 1
+  # - Name: airlineorg
+  #   Domain: airlineorg.oil.com
+  #   CA:
+  #      Hostname: ca # implicitly ca.ind.jedi.com
+  #   Template:
+  #     Count: 2
+  #     SANS:
+  #       - "localhost"
+  #       - "127.0.0.1"
+  #       - "192.168.1.52"
+  #       # - "10.146.0.4" #orderer
+  #       # - "10.128.0.2" #bafs
+  #       # - "10.128.0.3" #airline
+  #       # - "10.148.0.3" #excise
+  #       # - "10.128.0.4" #cd
+  #   Users:
+  #     Count: 1
       
-  - Name: exciseorg
-    Domain: exciseorg.oil.com
-    CA:
-       Hostname: ca # implicitly ca.ind.jedi.com
-    Template:
-      Count: 2
-      SANS:
-        - "localhost"
-        - "127.0.0.1"
-        - "10.146.0.4" #orderer
-        - "10.128.0.2" #bafs
-        - "10.128.0.3" #airline
-        - "10.148.0.3" #excise
-        - "10.128.0.4" #cd
-    Users:
-      Count: 1
+  # - Name: exciseorg
+  #   Domain: exciseorg.oil.com
+  #   CA:
+  #      Hostname: ca # implicitly ca.ind.jedi.com
+  #   Template:
+  #     Count: 2
+  #     SANS:
+  #       - "localhost"
+  #       - "127.0.0.1"
+  #       - "192.168.1.52"
+  #       # - "10.146.0.4" #orderer
+  #       # - "10.128.0.2" #bafs
+  #       # - "10.128.0.3" #airline
+  #       # - "10.148.0.3" #excise
+  #       # - "10.128.0.4" #cd
+  #   Users:
+  #     Count: 1
   
-  - Name: cdorg
-    Domain: cdorg.oil.com
-    CA:
-       Hostname: ca # implicitly ca.ind.jedi.com
-    Template:
-      Count: 2
-      SANS:
-        - "localhost"
-        - "127.0.0.1"
-        - "10.146.0.4" #orderer
-        - "10.128.0.2" #bafs
-        - "10.128.0.3" #airline
-        - "10.148.0.3" #excise
-        - "10.128.0.4" #cd
-    Users:
-      Count: 1
+  # - Name: cdorg
+  #   Domain: cdorg.oil.com
+  #   CA:
+  #      Hostname: ca # implicitly ca.ind.jedi.com
+  #   Template:
+  #     Count: 2
+  #     SANS:
+  #       - "localhost"
+  #       - "127.0.0.1"
+  #       - "192.168.1.52"
+  #       # - "10.146.0.4" #orderer
+  #       # - "10.128.0.2" #bafs
+  #       # - "10.128.0.3" #airline
+  #       # - "10.148.0.3" #excise
+  #       # - "10.128.0.4" #cd
+  #   Users:
+  #     Count: 1
