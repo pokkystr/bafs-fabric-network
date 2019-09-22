@@ -23,7 +23,7 @@ services:
     volumes:
       - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/ca/:/etc/hyperledger/fabric-ca-server-config
     ports:
-      - 7054:7054
+      - 7154:7054
     networks:
       - bafs
       
@@ -34,7 +34,7 @@ services:
       - COUCHDB_USER=admindb0
       - COUCHDB_PASSWORD=admindb0password
     ports:
-      - 5984:5984
+      - 5981:5984
     networks:
       - bafs
 
@@ -54,8 +54,8 @@ services:
     volumes:
         - ./channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/:/etc/hyperledger/crypto/peer
     ports:
-      - 7051:7051
-      - 7053:7053
+      - 7151:7051
+      - 7153:7053
     networks:
       - bafs
     

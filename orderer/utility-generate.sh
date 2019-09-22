@@ -92,13 +92,13 @@ function generate-utility(){
     # echo "########## Generate Anchors PP10 ############"
     # echo "#############################################"
     # airlineorg exciseorg cdorg
-    for orgName in bafsorg ; do
+    for orgName in bafsorg exciseorg; do
 		generateAnchorsCert $CHANNEL_ID $orgName TradeOilChannel
         sleep 1
     done
     # generateAnchorsCert channel-vrt-pp10 rdorg PP10Channel
 # airlineorg exciseorg cdorg
-    for orgName in bafsorg ; do
+    for orgName in bafsorg exciseorg; do
         createFolderChainCode $orgName 
         echo "Create Folder ChainCode OrgName "$orgName" .... Done"
 

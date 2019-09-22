@@ -9,6 +9,7 @@ services:
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.excisorg.oil.com:7051
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key

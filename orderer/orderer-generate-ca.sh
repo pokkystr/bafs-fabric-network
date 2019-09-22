@@ -37,9 +37,8 @@ docker rm $(docker ps -a -f status=exited -q)
 ##################################################
 # generate-orderer  crypto
 ##################################################
-
-# orderer-generateCerts
-# genesisBlock-generate
+orderer-generateCerts
+genesisBlock-generate
 
 ##################################################
 # generate-channel create file block and tx then
@@ -50,7 +49,7 @@ docker rm $(docker ps -a -f status=exited -q)
 generate-utility
 
 cp -R ../chaincode-bafs/ ../bafsorg/channel-artifacts/chaincode/
-# cp -R ../chaincode-bafs/ ../exciseorg/channel-artifacts/chaincode/
+cp -R ../chaincode-bafs/ ../exciseorg/channel-artifacts/chaincode/
 # cp -R ../chaincode-bafs/ ../cdorg/channel-artifacts/chaincode/
 # cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/chaincode/
 

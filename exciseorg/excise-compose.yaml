@@ -23,7 +23,7 @@ services:
     volumes:
       - ./channel-artifacts/crypto-config/peerOrganizations/exciseorg.oil.com/ca/:/etc/hyperledger/fabric-ca-server-config
     ports:
-      - 7054:7054
+      - 7254:7054
     networks:
       - excise
       
@@ -34,7 +34,7 @@ services:
       - COUCHDB_USER=admindb0
       - COUCHDB_PASSWORD=admindb0password
     ports:
-      - 5984:5984
+      - 5982:5984
     networks:
       - excise
 
@@ -54,8 +54,8 @@ services:
     volumes:
         - ./channel-artifacts/crypto-config/peerOrganizations/exciseorg.oil.com/peers/peer0.exciseorg.oil.com/:/etc/hyperledger/crypto/peer
     ports:
-      - 7051:7051
-      - 7053:7053
+      - 7251:7051
+      - 7253:7053
     networks:
       - excise
     
