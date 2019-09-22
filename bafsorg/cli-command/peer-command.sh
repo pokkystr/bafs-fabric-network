@@ -2,12 +2,13 @@
 #Config
 export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/users/Admin@bafsorg.oil.com/msp
 export CORE_PEER_ADDRESS=peer0.bafsorg.oil.com:7051
+# export CORE_PEER_ADDRESS=192.168.1.52:7051    
 export CORE_PEER_LOCALMSPID="bafsorgmsp"
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/peerOrganizations/bafsorg.oil.com/peers/peer0.bafsorg.oil.com/tls/ca.crt
 
 #Orderer
 export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/msp/tlscacerts/tlsca.oil.com-cert.pem
-export ORDERER_ADDRESS=10.146.0.4:7050
+export ORDERER_ADDRESS=192.168.1.52:7050
 
 #Param
 export ANCHORS_NAME=./channel-artifacts/bafsorgmspanchors
@@ -32,12 +33,13 @@ function joinChannel(){
 }
 
 function installAndinstantiate(){
-    peer chaincode install -n invoice -v j.1.0 -l java -p /opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/chaincode/ >&installLog.txt
+    peer chaincode install -n invoice -v j.1.2 -l java -p /opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/chaincode/
     cat installLog.txt
     echo "===================== Channel invoice install ===================== "
     echo
     sleep 2
-    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n invoice -l java -v j.1.1 -c '{"Args":["init"]}' #-P "AND ('bafsorgmsp.member','exciseorgmsp.member','cdorgmsp.member')" >&instantiateLog.txt
+    peer chaincode instantiate -o $ORDERER_ADDRESS --tls true --cafile $ORDERER_CA -C $CHANNEL_TRADE -n invoice -l java -v j.1.2 -c '{"Args":["init"]}'
+    #  -P "AND ('bafsorgmsp.member')"
     # cat instantiateLog.txt
     echo "===================== Channel invoice instantiate ===================== "
     echo
@@ -47,5 +49,5 @@ function installAndinstantiate(){
 joinChannel
 installAndinstantiate
 
-peer chaincode query -C $CHANNEL_TRADE -n invoice -c '{"Args":["queryInvoice","ticketNumber3"]}' >&querylog.txt
+peer chaincode query -C $CHANNEL_TRADE -n invoice -c '{"Args":["queryInvoice","1"]}'
 cat querylog.txt
