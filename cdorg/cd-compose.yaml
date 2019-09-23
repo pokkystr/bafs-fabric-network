@@ -23,7 +23,7 @@ services:
     volumes:
       - ./channel-artifacts/crypto-config/peerOrganizations/cdorg.oil.com/ca/:/etc/hyperledger/fabric-ca-server-config
     ports:
-      - 7054:7054
+      - 7354:7054
     networks:
       - cd
       
@@ -34,7 +34,7 @@ services:
       - COUCHDB_USER=admindb0
       - COUCHDB_PASSWORD=admindb0password
     ports:
-      - 5984:5984
+      - 5983:5984
     networks:
       - cd
 
@@ -54,8 +54,8 @@ services:
     volumes:
         - ./channel-artifacts/crypto-config/peerOrganizations/cdorg.oil.com/peers/peer0.cdorg.oil.com/:/etc/hyperledger/crypto/peer
     ports:
-      - 7051:7051
-      - 7053:7053
+      - 7351:7051
+      - 7353:7053
     networks:
       - cd
     

@@ -66,28 +66,28 @@ Organizations:
                 Rule: "OR('cdorgmsp.admin')"
         AnchorPeers:
             - Host: 10.15.216.250
-              Port: 7351              
+              Port: 7351
 
-    # - &airlineorg
-    #     Name: airlineorgmsp
-    #     ID: airlineorgmsp
-    #     MSPDir: crypto-config/peerOrganizations/airlineorg.oil.com/msp
-    #     Policies: &airlineorgPolicies
-    #         Readers:
-    #             Type: Signature
-    #             Rule: "OR('airlineorgmsp.member')"
-    #         Writers:
-    #             Type: Signature
-    #             Rule: "OR('airlineorgmsp.member')"
-    #         Admins:
-    #             Type: Signature
-    #             Rule: "OR('airlineorgmsp.admin')"
-    #         Endorsement:
-    #             Type: Signature
-    #             Rule: "OR('airlineorgmsp.member')"
-    #     AnchorPeers:
-    #         - Host: 10.128.0.3
-    #           Port: 7051
+    - &airlineorg
+        Name: airlineorgmsp
+        ID: airlineorgmsp
+        MSPDir: crypto-config/peerOrganizations/airlineorg.oil.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('airlineorgmsp.member')"
+        AnchorPeers:
+            - Host: 10.15.216.250
+              Port: 7451
               
 ################################################################################
 #
@@ -367,7 +367,7 @@ Profiles:
                 - *bafsorg
                 - *exciseorg
                 - *cdorg
-                # - *airlineorg
+                - *airlineorg
             Capabilities:
                 <<: *ApplicationCapabilities
     
@@ -420,3 +420,4 @@ Profiles:
                 - *bafsorg
                 - *exciseorg
                 - *cdorg
+                - *airlineorg
