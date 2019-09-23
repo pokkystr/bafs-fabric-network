@@ -29,7 +29,7 @@ Organizations:
                 Type: Signature
                 Rule: "OR('bafsorgmsp.admin')"
         AnchorPeers:
-            - Host: 192.168.1.52
+            - Host: 10.15.216.250
               Port: 7151
 
     - &exciseorg
@@ -47,7 +47,7 @@ Organizations:
                 Type: Signature
                 Rule: "OR('exciseorgmsp.admin')"
         AnchorPeers:
-            - Host: 192.168.1.52
+            - Host: 10.15.216.250
               Port: 7251
 
     # - &airlineorg
@@ -193,7 +193,6 @@ Application: &ApplicationDefaults
 
     Capabilities:
         <<: *ApplicationCapabilities
-
 ################################################################################
 #
 #   SECTION: Orderer
@@ -206,14 +205,14 @@ Orderer: &OrdererDefaults
 
     # Orderer Type: The orderer implementation to start
     # Available types are "solo" and "kafka"
-    OrdererType: etcdraft
+    OrdererType: solo
 
     Addresses:
-        - 192.168.1.52:7050
-        - 192.168.1.52:8050
-        - 192.168.1.52:9050
-        - 192.168.1.52:10050
-        - 192.168.1.52:11050
+        - 10.15.216.250:7050
+        - 10.15.216.250:8050
+        - 10.15.216.250:9050
+        - 10.15.216.250:10050
+        - 10.15.216.250:11050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -233,78 +232,17 @@ Orderer: &OrdererDefaults
         # max bytes will result in a batch larger than preferred max bytes.
         PreferredMaxBytes: 512 KB
 
-    EtcdRaft:
-        # The set of Raft replicas for this network. For the etcd/raft-based
-        # implementation, we expect every replica to also be an OSN. Therefore,
-        # a subset of the host:port items enumerated in this list should be
-        # replicated under the Orderer.Addresses key above.
-        Consenters:
-            - Host: 192.168.1.52
-              Port: 7050
-              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
-            - Host: 192.168.1.52
-              Port: 8050
-              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
-            - Host: 192.168.1.52
-              Port: 9050
-              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
-            - Host: 192.168.1.52
-              Port: 10050
-              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
-            - Host: 192.168.1.52
-              Port: 11050
-              ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
-              ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
-              
-        Options:
-            # TickInterval is the time interval between two Node.Tick invocations.
-            TickInterval: 500ms
+    Kafka:
+        # Brokers: A list of Kafka brokers to which the orderer connects
+        # NOTE: Use IP:port notation
+        Brokers:
+            - 10.15.216.250:9092
 
-            # ElectionTick is the number of Node.Tick invocations that must pass
-            # between elections. That is, if a follower does not receive any
-            # message from the leader of current term before ElectionTick has
-            # elapsed, it will become candidate and start an election.
-            # ElectionTick must be greater than HeartbeatTick.
-            ElectionTick: 10
-
-            # HeartbeatTick is the number of Node.Tick invocations that must
-            # pass between heartbeats. That is, a leader sends heartbeat
-            # messages to maintain its leadership every HeartbeatTick ticks.
-            HeartbeatTick: 1
-
-            # MaxInflightBlocks limits the max number of in-flight append messages
-            # during optimistic replication phase.
-            MaxInflightBlocks: 5
-
-            # SnapshotIntervalSize defines number of bytes per which a snapshot is taken
-            SnapshotIntervalSize: 20 MB
     Organizations:
-    # Policies:
-    #     Readers:
-    #         Type: ImplicitMeta
-    #         Rule: "ANY Readers"
-    #     Writers:
-    #         Type: ImplicitMeta
-    #         Rule: "ANY Writers"
-    #     Admins:
-    #         Type: ImplicitMeta
-    #         Rule: "MAJORITY Admins"
-    #     BlockValidation:
-    #         Type: ImplicitMeta
-    #         Rule: "ANY Writers"
-################################################################################
-#
-#   CHANNEL
-#
-#   This section defines the values to encode into a config transaction or
-#   genesis block for channel related parameters.
-#
-################################################################################
-Channel: &ChannelDefaults
+
+    # Policies defines the set of policies at this level of the config tree
+    # For Orderer policies, their canonical path is
+    #   /Channel/Orderer/<PolicyName>
     Policies:
         Readers:
             Type: ImplicitMeta
@@ -315,6 +253,90 @@ Channel: &ChannelDefaults
         Admins:
             Type: ImplicitMeta
             Rule: "MAJORITY Admins"
+        # BlockValidation specifies what signatures must be included in the block
+        # from the orderer for the peer to validate it.
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+    # EtcdRaft:
+    #     # The set of Raft replicas for this network. For the etcd/raft-based
+    #     # implementation, we expect every replica to also be an OSN. Therefore,
+    #     # a subset of the host:port items enumerated in this list should be
+    #     # replicated under the Orderer.Addresses key above.
+    #     Consenters:
+    #         - Host: 10.15.216.250
+    #           Port: 7050
+    #           ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
+    #           ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
+    #         - Host: 10.15.216.250
+    #           Port: 8050
+    #           ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
+    #           ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
+    #         - Host: 10.15.216.250
+    #           Port: 9050
+    #           ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
+    #           ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
+    #         - Host: 10.15.216.250
+    #           Port: 10050
+    #           ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
+    #           ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
+    #         - Host: 10.15.216.250
+    #           Port: 11050
+    #           ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
+    #           ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
+              
+    #     Options:
+    #         # TickInterval is the time interval between two Node.Tick invocations.
+    #         TickInterval: 500ms
+
+    #         # ElectionTick is the number of Node.Tick invocations that must pass
+    #         # between elections. That is, if a follower does not receive any
+    #         # message from the leader of current term before ElectionTick has
+    #         # elapsed, it will become candidate and start an election.
+    #         # ElectionTick must be greater than HeartbeatTick.
+    #         ElectionTick: 10
+
+    #         # HeartbeatTick is the number of Node.Tick invocations that must
+    #         # pass between heartbeats. That is, a leader sends heartbeat
+    #         # messages to maintain its leadership every HeartbeatTick ticks.
+    #         HeartbeatTick: 1
+
+    #         # MaxInflightBlocks limits the max number of in-flight append messages
+    #         # during optimistic replication phase.
+    #         MaxInflightBlocks: 5
+
+    #         # SnapshotIntervalSize defines number of bytes per which a snapshot is taken
+    #         SnapshotIntervalSize: 20 MB
+################################################################################
+#
+#   CHANNEL
+#
+#   This section defines the values to encode into a config transaction or
+#   genesis block for channel related parameters.
+#
+################################################################################
+Channel: &ChannelDefaults
+    # Policies defines the set of policies at this level of the config tree
+    # For Channel policies, their canonical path is
+    #   /Channel/<PolicyName>
+    Policies:
+        # Who may invoke the 'Deliver' API
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        # Who may invoke the 'Broadcast' API
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        # By default, who may modify elements at this config level
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+
+    # Capabilities describes the channel level capabilities, see the
+    # dedicated Capabilities section elsewhere in this file for a full
+    # description
     Capabilities:
         <<: *ChannelCapabilities
 
@@ -327,20 +349,20 @@ Channel: &ChannelDefaults
 #
 ################################################################################
 Profiles:
-    BafsOrdererGenesis:
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-            Capabilities:
-                <<: *OrdererCapabilities
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *bafsorg
-                    - *exciseorg
-                    # - *cdorg
-                    # - *airlineorg
+    # BafsOrdererGenesis:
+    #     Orderer:
+    #         <<: *OrdererDefaults
+    #         Organizations:
+    #             - *OrdererOrg
+    #         Capabilities:
+    #             <<: *OrdererCapabilities
+    #     Consortiums:
+    #         SampleConsortium:
+    #             Organizations:
+    #                 - *bafsorg
+    #                 - *exciseorg
+    #                 # - *cdorg
+    #                 # - *airlineorg
     TradeOilChannel:
         Consortium: SampleConsortium
         Application:
@@ -352,3 +374,52 @@ Profiles:
                 # - *airlineorg
             Capabilities:
                 <<: *ApplicationCapabilities
+    
+    BafsOrdererGenesis:
+        <<: *ChannelDefaults
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            OrdererType: etcdraft
+            EtcdRaft:
+                Consenters:
+                - Host: 10.15.216.250
+                  Port: 7050
+                  ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer.oil.com/tls/server.crt
+                - Host: 10.15.216.250
+                  Port: 8050
+                  ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer2.oil.com/tls/server.crt
+                - Host: 10.15.216.250
+                  Port: 9050
+                  ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer3.oil.com/tls/server.crt
+                - Host: 10.15.216.250
+                  Port: 10050
+                  ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer4.oil.com/tls/server.crt
+                - Host: 10.15.216.250
+                  Port: 11050
+                  ClientTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/oil.com/orderers/orderer5.oil.com/tls/server.crt
+            Addresses:
+                - 10.15.216.250:7050
+                - 10.15.216.250:8050
+                - 10.15.216.250:9050
+                - 10.15.216.250:10050
+                - 10.15.216.250:11050
+            Organizations:
+            - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+            - <<: *OrdererOrg
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                - *bafsorg
+                - *exciseorg

@@ -20,6 +20,10 @@ function generateAnchorsCert() {
     set +x
 }
 
+function generateChannel(){
+    configtxgen -profile TradeOilChannel -outputCreateChannelTx ./channel-artifacts/${CHANNEL_NAME}.tx -channelID $CHANNEL_ID
+}
+
 function checkAndCreatePeerOrg(){
     ORG_NAME=$1
     
@@ -48,10 +52,6 @@ function copyCryptoConfigToOrganizations(){
     cp -r ./crypto-config/ordererOrganizations/oil.com ../$ORG_NAME/channel-artifacts/crypto-config/ordererOrganizations/
 }
 
-function generateChannel(){
-    configtxgen -profile TradeOilChannel -outputCreateChannelTx ./channel-artifacts/${CHANNEL_NAME}.tx -channelID $CHANNEL_ID
-}
-
 function createFolderChainCode(){
     ORG_NAME=$1
 
@@ -73,18 +73,10 @@ function copyChaincodeToOrganizations(){
     cp -rp ../chaincode/ ../$ORG_NAME/channel-artifacts/chaincode/
 }
 
-function replaceComposeKeySK(){
-    ORG_NAME=$1
-
-    COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_CA}"
-    export KTB_CA_PRIVATE_KEY="$(cd crypto-config/peerOrganizations/org1.example.com/ca && ls *_sk)"
-}
-
 function generate-utility(){
-    echo
-    echo "#############################################"
-    echo "############# Generate channel ##############"
-    echo "#############################################"
+    #############################################
+    ############# Generate channel ##############
+    #############################################
     generateChannel
 
     # echo
