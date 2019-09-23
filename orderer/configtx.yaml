@@ -50,6 +50,24 @@ Organizations:
             - Host: 10.15.216.250
               Port: 7251
 
+    - &cdorg
+        Name: cdorgmsp
+        ID: cdorgmsp
+        MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('cdorgmsp.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('cdorgmsp.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('cdorgmsp.admin')"
+        AnchorPeers:
+            - Host: 10.15.216.250
+              Port: 7351              
+
     # - &airlineorg
     #     Name: airlineorgmsp
     #     ID: airlineorgmsp
@@ -71,28 +89,6 @@ Organizations:
     #         - Host: 10.128.0.3
     #           Port: 7051
               
-    # - &cdorg
-    #     Name: cdorgmsp
-    #     ID: cdorgmsp
-    #     MSPDir: crypto-config/peerOrganizations/cdorg.oil.com/msp
-    #     Policies: &cdorgPolicies
-    #         Readers:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.member')"
-    #         Writers:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.member')"
-    #         Admins:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.admin')"
-    #         Endorsement:
-    #             Type: Signature
-    #             Rule: "OR('cdorgmsp.member')"
-    #     AnchorPeers:
-    #         - Host: 10.128.0.4
-    #           Port: 7051
-
-
 ################################################################################
 #
 #   SECTION: Capabilities
@@ -370,7 +366,7 @@ Profiles:
             Organizations:
                 - *bafsorg
                 - *exciseorg
-                # - *cdorg
+                - *cdorg
                 # - *airlineorg
             Capabilities:
                 <<: *ApplicationCapabilities
@@ -423,3 +419,4 @@ Profiles:
                 Organizations:
                 - *bafsorg
                 - *exciseorg
+                - *cdorg

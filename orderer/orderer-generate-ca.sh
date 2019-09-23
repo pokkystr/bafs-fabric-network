@@ -50,7 +50,7 @@ generate-utility
 
 cp -R ../chaincode-bafs/ ../bafsorg/channel-artifacts/chaincode/
 cp -R ../chaincode-bafs/ ../exciseorg/channel-artifacts/chaincode/
-# cp -R ../chaincode-bafs/ ../cdorg/channel-artifacts/chaincode/
+cp -R ../chaincode-bafs/ ../cdorg/channel-artifacts/chaincode/
 # cp -R ../chaincode-bafs/ ../airlineorg/channel-artifacts/chaincode/
 
 
